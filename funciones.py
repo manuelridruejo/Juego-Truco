@@ -1,6 +1,5 @@
-import csv
 from Clases_Juego import *
-
+import csv
 
 def CantarTruco (p1, p2): 
 
@@ -84,54 +83,6 @@ def CantarValeCuatro (p1, p2):
     quiero = 'no'
 
   return puntos_truco, termino, ganador, quiero
-
-
-
-
-def mostrar_cartas (lista):
-  cartas = "sus cartas son: "
-  for i in lista:
-    cartas += (str(i) + ', ')
-  print(cartas)
-
-
-def tirar_3 (jugador, cartas):
-  lista = []
-  print("\n" + jugador + ", que carta desea tirar: ")
-  print("1. " + str(cartas[0]))
-  print("2. " + str(cartas[1]))
-  print("3. " + str(cartas[2]))
-  op = ValidarRTA (3)
-
-  for j in cartas:
-    if j != cartas[op-1]:
-      lista.append(j)
-
-  return cartas[op-1], lista
-
-
-def tirar_2(jugador,cartas):
-  
-  lista = []
-  
-  print("\n" + jugador + ", que carta desea tirar: ")
-  print("1. " + str(cartas[0]))
-  print("2. " + str(cartas[1]))
-  op = ValidarRTA (2)
-  
-  for j in cartas:
-    if j != cartas [op-1]:
-      lista.append(j)
-  
-  return cartas[op],lista
-
-def tirar_1 (jugador, cartas):
-  
-  print('\n' + jugador + ", le queda una sola carta, presione 1 para tirarla: ")
-  print("1." + str(cartas[0]))
-  opcion = ValidarRTA (1)
-
-  return cartas[0], []
 
 
 def quien_es_mano (ronda, p1, puntos1, p2, puntos2):
@@ -359,6 +310,51 @@ def envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano):
   
   return puntos1, puntos2
 
+
+def mostrar_cartas (lista):
+  cartas = "sus cartas son: "
+  for i in lista:
+    cartas += (str(i) + ', ')
+  print(cartas)
+
+
+def tirar_3 (jugador, cartas):
+  lista = []
+  print("\n" + jugador + ", que carta desea tirar: ")
+  print("1. " + str(cartas[0]))
+  print("2. " + str(cartas[1]))
+  print("3. " + str(cartas[2]))
+  op = ValidarRTA (3)
+
+  for j in cartas:
+    if j != cartas[op-1]:
+      lista.append(j)
+
+  return cartas[op-1], lista
+
+
+def tirar_2(jugador,cartas):
+  
+  lista = []
+  
+  print("\n" + jugador + ", que carta desea tirar: ")
+  print("1. " + str(cartas[0]))
+  print("2. " + str(cartas[1]))
+  op = ValidarRTA (2)
+  
+  for j in cartas:
+    if j != cartas [op-1]:
+      lista.append(j)
+  
+  return cartas[op],lista
+
+def tirar_1 (jugador, cartas):
+  
+  print('\n' + jugador + ", le queda una sola carta, presione 1 para tirarla: ")
+  print("1." + str(cartas[0]))
+  opcion = ValidarRTA (1)
+
+  return cartas[0], []
 
 
 def ValidarRTA (parametro):
@@ -590,3 +586,11 @@ def lectura(file):
             lista += [jugador]
         lista.pop(0)
     return lista
+
+
+def escritura(archivo:str, matriz):
+    with open(archivo, "w", newline = "") as file:
+        writer = csv.writer(file, delimiter = ",")
+        writer.writerows(matriz)
+    return
+

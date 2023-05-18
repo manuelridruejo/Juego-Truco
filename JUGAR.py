@@ -558,13 +558,18 @@ def Jugar(lista):
   print('2. Invitado')
   opcion = ValidarRTA (2)
 
+
+  jug1_usuario = False
+  jug2_usuario = False
+
   if opcion == 1:
     nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1 = IniciarSesion (lista)
     jugador1 = Jugador (nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1)
     p1 = jugador1.usuario
+    jug1_usuario = True
   
   else:
-    nombre1 = input ('Ingrese su nombre por favor')
+    nombre1 = input ('Ingrese su nombre por favor: ')
     p1 = 'Invitado '+nombre1
   
   puntos1 = 0
@@ -578,24 +583,19 @@ def Jugar(lista):
     nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2 = IniciarSesion (lista)
     jugador2 = Jugador (nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2)
     p2 = jugador2.usuario
+    jug2_usuario = True
   
   else:
-    nombre2 = input ('Ingrese su nombre por favor')
+    nombre2 = input ('Ingrese su nombre por favor: ')
     p2 = 'Invitado '+nombre2
   
   puntos2 = 0
-
-  if p1 == p2:
-    p1 = jugador1.apellido
-    p2 = jugador2.apellido
   
   if p1 == p2:
     p1 += '1'
     p2 += '2'
 
-  escribir = "\nSe ha iniciado una nueva partida entre: " + p1 + " y " + p2
-
-  print(escribir)
+  print("\nSe ha iniciado una nueva partida entre: " + p1 + " y " + p2)
 
   while puntos1 < 30 and puntos2 < 30:
     
@@ -826,13 +826,12 @@ def Jugar(lista):
           
     if puntos1 > puntos2:
       print('\nFELICITACIONES ' + p1 + '!!! USTED HA GANADO LA PARTIDA!!!')
-      ganador_final = "gano {}, {} a {}".format(p1, puntos1, puntos2) 
+      ganador = p1
+      perdedor = p2
     elif puntos2 > puntos1:
       print('\nFELICITACIONES ' + p2 + '!!! USTED HA GANADO LA PARTIDA!!!')
-      ganador_final = "gano {}, {} a {}".format(p2, puntos2, puntos1) 
-    elif puntos2 == puntos1:
-      print('\nHA HABIDO UN EMPATE.')
-      ganador_final = "empate"
+      ganador = p2
+      perdedor = p1 
   elif puntos2 >= 30:
     print('\nFELICITACIONES ' + p2 + '!!! USTED HA GANADO LA PARTIDA!!!')
     ganador_final = "gano {}, {} a {}".format(p2, puntos2, puntos1) 
@@ -840,7 +839,8 @@ def Jugar(lista):
   elif puntos1 >= 30:
     print('\nFELICITACIONES ' + p1 + '!!! USTED HA GANADO LA PARTIDA!!!')
     ganador_final = "gano {}, {} a {}".format(p1, puntos1, puntos2)
+  
 
+  partida = Partida()
 
-
-#Falta algo aca
+  
