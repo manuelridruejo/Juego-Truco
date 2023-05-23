@@ -826,3 +826,17 @@ def Jugar(lista):
 
     termino=chequearganador(puntos1,puntos2,p1,p2)
   
+  if puntos1 < puntos2:
+    ganador_final = p2
+    perdedor_final = p1
+    resultado = str(p2)+"-"+str(p1)
+  else:
+    ganador_final = p1
+    perdedor_final = p2
+    resultado = str(p1)+"-"+str(p2)
+  
+  return ganador_final, perdedor_final, resultado
+  
+  
+  
+  

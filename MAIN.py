@@ -23,7 +23,10 @@ while opcion != 4:
     x = 10
   
   elif opcion == 2:
-    Jugar(lista_jugadores)
+    ganador, perdedor, resultado = Jugar(lista_jugadores)
+    partida_jugada = Partida(ganador,perdedor, resultado)
+    partida_a_agregar = [partida_jugada.codigo, partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, partida_jugada.fecha]
+    lista_partidas.append()
   
   elif opcion == 3:
     print('Bienvenido al menu de ajustes. ')
