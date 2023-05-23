@@ -230,7 +230,7 @@ def sumar_puntos_envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, punto
   return puntos1, puntos2
   
 
-def envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano):
+def envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano,p1,p2):
   
   print('\nQue desea cantar?')
   print('1. Envido')
@@ -308,8 +308,26 @@ def envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano):
     puntos_al_no=1
     puntos1, puntos2 = falta_envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_al_no, mano)
   
-  return puntos1, puntos2
+  termino = chequearganador(puntos1,puntos2,p1,p2)
 
+  return puntos1, puntos2,termino
+
+def chequearganador(puntos1,puntos2,p1,p2):
+  
+    termino = False
+
+    if puntos1 >= 30:
+        print('\nFELICITACIONES ' + p1 + '!!! USTED HA GANADO LA PARTIDA!!!')
+        ganador_final = "gano {}, {} a {}".format(p1, puntos1, puntos2)
+        termino = True
+    
+    
+    if puntos2 >= 30:
+        print('\nFELICITACIONES ' + p2 + '!!! USTED HA GANADO LA PARTIDA!!!')
+        ganador_final = "gano {}, {} a {}".format(p2, puntos2, puntos1)
+        termino = True
+    
+    return termino
 
 def mostrar_cartas (lista):
   cartas = "sus cartas son: "

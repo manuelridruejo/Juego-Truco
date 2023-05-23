@@ -1,7 +1,7 @@
 from funciones import *
 from Clases_Juego import *
 
-def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco, quiero, mano):                 #JUGAR PRIMERA
+def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco, quiero, mano, p1,p2):                 #JUGAR PRIMERA
   
   termino = False
   hubo_envido = False
@@ -20,15 +20,18 @@ def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco
       opcion = ValidarRTA (4)
 
       if opcion == 1:
-        puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano)
+        puntos1, puntos2,termino = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano,p1,p2)
         hubo_envido = True
-        
-        print('\n'+jug1+', que desea hacer?')
-        mostrar_cartas(cartasj1)
-        print('1. Cantar truco')
-        print('2. Tirar carta')
-        print('3. Irse al mazo')
-        opcion = ValidarRTA (3)  
+
+        if termino==False:
+          print('\n'+jug1+', que desea hacer?')
+          mostrar_cartas(cartasj1)
+          print('1. Cantar truco')
+          print('2. Tirar carta')
+          print('3. Irse al mazo')
+          opcion = ValidarRTA(3)
+        else:
+          opcion=3 
 
         if opcion == 1:
           puntos_truco, termino, ganador, quiero = CantarTruco (jug1, jug2)
@@ -70,7 +73,7 @@ def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco
       opcion = ValidarRTA (4)
 
       if opcion == 1:
-        puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano)
+        puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano,p1,p2)
         hubo_envido = True
         
         print('\n' + jug1 + ', que desea hacer?')
@@ -120,7 +123,7 @@ def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco
       opcion = ValidarRTA (4)
 
       if opcion == 1:
-        puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano)
+        puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano, p1, p2)
         hubo_envido = True
         
         print('\n' + jug1 + ', que desea hacer?')
@@ -169,7 +172,7 @@ def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco
       opcion = ValidarRTA (3)
 
       if opcion == 1:
-        puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano)
+        puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano, p1, p2)
         hubo_envido = True
         
         print('\n' + jug1 + ', que desea hacer?')
@@ -203,7 +206,7 @@ def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco
     opcion = ValidarRTA (3)
 
     if opcion == 1:
-      puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano)
+      puntos1, puntos2 = envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano, p1, p2)
       hubo_envido = True
         
       print('\n' + jug1 + ', que desea hacer?')
@@ -602,7 +605,7 @@ def Jugar(lista):
     mazo=Mazo()       #Se crea el mazo
 
     cartas_en_juego = mazo.repartir()      #Se reparte el mazo
-
+    ronda = 1
     mano, puntos_mano, pie, puntos_pie = quien_es_mano (ronda, p1, puntos1, p2, puntos2)        #Se determina que jugador es mano
 
     cartasmano = [cartas_en_juego[0], cartas_en_juego[2], cartas_en_juego[4]]         #Se dan las cartas al mano y al pie
@@ -632,7 +635,7 @@ def Jugar(lista):
 
       #Primera mano
 
-      puntos_mano, puntos_pie, puntos_truco, termino, hubo_envido, carta1_mano, cartas_mano, ganador, quiero  = JugarPrimera (mano, puntos_mano, cartasmano, pie, puntos_pie, cartas_pie, puntos_truco, quiero, mano)
+      puntos_mano, puntos_pie, puntos_truco, termino, hubo_envido, carta1_mano, cartas_mano, ganador, quiero  = JugarPrimera (mano, puntos_mano, cartasmano, pie, puntos_pie, cartas_pie, puntos_truco, quiero, mano,p1,p2)
       
       if termino == True:
         if quiero == '':
@@ -646,7 +649,7 @@ def Jugar(lista):
           break
 
       elif hubo_envido == False:
-        puntos_pie, puntos_mano, puntos_truco, termino, hubo_envido, carta1_pie, cartas_pie, ganador, quiero  = JugarPrimera (pie, puntos_pie, cartas_pie, mano, puntos_mano, cartasmano, puntos_truco, quiero, mano)
+        puntos_pie, puntos_mano, puntos_truco, termino, hubo_envido, carta1_pie, cartas_pie, ganador, quiero  = JugarPrimera (pie, puntos_pie, cartas_pie, mano, puntos_mano, cartasmano, puntos_truco, quiero, mano,p1,p2)
 
         if termino == True:
           break
@@ -821,26 +824,5 @@ def Jugar(lista):
     print('\n------------------------------------------------------------------------------\n\n')
     ronda +=1
 
-
-  if puntos1 >= 30 and puntos2 >= 30:
-          
-    if puntos1 > puntos2:
-      print('\nFELICITACIONES ' + p1 + '!!! USTED HA GANADO LA PARTIDA!!!')
-      ganador = p1
-      perdedor = p2
-    elif puntos2 > puntos1:
-      print('\nFELICITACIONES ' + p2 + '!!! USTED HA GANADO LA PARTIDA!!!')
-      ganador = p2
-      perdedor = p1 
-  elif puntos2 >= 30:
-    print('\nFELICITACIONES ' + p2 + '!!! USTED HA GANADO LA PARTIDA!!!')
-    ganador_final = "gano {}, {} a {}".format(p2, puntos2, puntos1) 
-
-  elif puntos1 >= 30:
-    print('\nFELICITACIONES ' + p1 + '!!! USTED HA GANADO LA PARTIDA!!!')
-    ganador_final = "gano {}, {} a {}".format(p1, puntos1, puntos2)
-  
-
-  partida = Partida()
-
+    termino=chequearganador(puntos1,puntos2,p1,p2)
   
