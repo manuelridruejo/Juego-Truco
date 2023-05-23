@@ -16,7 +16,6 @@ while opcion != 4:
   print("\n2. Jugar un partido de Truco")
   print('\n3. Ajustes de usuario')
   print("\n4. Salir")
-  opcion = input("\nElija: ")
 
   opcion = ValidarRTA(4)
   
