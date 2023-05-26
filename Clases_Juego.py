@@ -47,6 +47,7 @@ def PedirMail ():
  
 PALOS = ["Oro", "Espada", "Copa", "Basto"] # Variable global en mayúsculas Guía PEP-8
 NUMEROS = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12]
+
 JERARQUIAS = {
   ("Oro", 1): 7,
   ("Oro", 2): 8,
@@ -274,16 +275,26 @@ class Jugadores():
 
 class Partida():
 
-    def __init__ (self, ganador, perdedor, resultado, lista_partidas):
-        self.codigo = self.asignar_codigo (lista_partidas)
-        self.ganador = ganador
-        self.perdedor = perdedor
-        self.resultado = resultado
-        self.fecha = date.today()
+  def __init__ (self, ganador: str, perdedor: str, resultado: str, lista_partidas):
+    self.codigo = self.asignar_codigo (lista_partidas)
+    self.ganador = ganador
+    self.perdedor = perdedor
+    self.resultado = resultado
+    self.fecha = date.today()
 
-    def asignar_codigo (self, lista_partidas):
-        return max(lista_partidas) + 1
+  def asignar_codigo (self, lista_partidas):
+    aux=''
+    if len(lista_partidas) == 0:
+      codigo = '0000001'
+    else:
+      cod = str(len(lista_partidas) + 1)
+      largo = len(cod)
+      for i in range(7-largo):
+        aux += '0'
+      codigo = aux + cod
+      
+    return codigo
 
-    def __str__ (self):
-        return "COD_PARTIDA {}:  {} vencio a {} con un resultado de {} el dia de la fecha {}".format(self.codigo, self.ganador, self.perdedor, self.resultado, self.fecha)
-    
+  def __str__ (self):
+    return "COD_PARTIDA {}:  {} vencio a {} con un resultado de {} el dia de la fecha {}".format(self.codigo, self.ganador, self.perdedor, self.resultado, self.fecha)
+  

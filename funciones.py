@@ -30,6 +30,7 @@ def CantarTruco (p1, p2):
   
   return puntos_truco, termino, ganador, quiero
 
+
 def CantarReTruco (p1, p2):
 
   termino = False
@@ -58,6 +59,7 @@ def CantarReTruco (p1, p2):
     quiero = 'no'
 
   return puntos_truco, termino, ganador, quiero
+
 
 def CantarValeCuatro (p1, p2):
   
@@ -167,6 +169,7 @@ def contar_tanto(cartas):
         
     if cartas[0].palo == cartas[2].palo:
       tanto_02 = 20 + (int(cartas[0].jerarquia_envido) + int(cartas[2].jerarquia_envido))
+      n += 1
         
     if n >= 1:
       tanto = max (tanto_01, tanto_02, tanto_12)
@@ -228,9 +231,9 @@ def sumar_puntos_envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, punto
       print(jug2, 'suma', puntos_tanto, 'puntos')
 
   return puntos1, puntos2
-  
 
-def envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano,p1,p2):
+
+def envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano):
   
   print('\nQue desea cantar?')
   print('1. Envido')
@@ -308,26 +311,23 @@ def envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano,p1,p2):
     puntos_al_no=1
     puntos1, puntos2 = falta_envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_al_no, mano)
   
-  termino = chequearganador(puntos1,puntos2,p1,p2)
+  fin_partida = chequearganador(puntos1, puntos2)
 
-  return puntos1, puntos2,termino
+  return puntos1, puntos2, fin_partida
 
-def chequearganador(puntos1,puntos2,p1,p2):
+
+def chequearganador(puntos1, puntos2):
   
-    termino = False
+  fin_partida = False
 
-    if puntos1 >= 30:
-        print('\nFELICITACIONES ' + p1 + '!!! USTED HA GANADO LA PARTIDA!!!')
-        ganador_final = "gano {}, {} a {}".format(p1, puntos1, puntos2)
-        termino = True
-    
-    
-    if puntos2 >= 30:
-        print('\nFELICITACIONES ' + p2 + '!!! USTED HA GANADO LA PARTIDA!!!')
-        ganador_final = "gano {}, {} a {}".format(p2, puntos2, puntos1)
-        termino = True
-    
-    return termino
+  if puntos1 >= 30:
+    fin_partida = True
+  
+  if puntos2 >= 30:
+    fin_partida = True
+  
+  return fin_partida
+
 
 def mostrar_cartas (lista):
   cartas = "sus cartas son: "
@@ -365,6 +365,7 @@ def tirar_2(jugador,cartas):
       lista.append(j)
   
   return cartas[op],lista
+
 
 def tirar_1 (jugador, cartas):
   
@@ -446,14 +447,12 @@ def PedirDNI ():
   return dni
 
 
-
 def Validar (lista, objeto, parametro):
   existe = False
   for jugador in lista:
     if jugador[parametro] == objeto:
       existe = True
   return existe
-
 
 
 def PedirMail ():
@@ -607,8 +606,12 @@ def lectura(file):
 
 
 def escritura(archivo:str, matriz):
+    
+    fila0 = ['codigo','ganador','perdedor','resultado','fecha']
+    
     with open(archivo, "w", newline = "") as file:
+        write = csv.writer(file, delimiter = ",")
+        write.writerow(fila0)
         writer = csv.writer(file, delimiter = ",")
         writer.writerows(matriz)
     return
-

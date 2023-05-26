@@ -11,7 +11,7 @@ opcion = 1
 
 while opcion != 4:
 
-  print("\nBienvenido! Que desea hacer?")
+  print("\n\n\nBienvenido! Que desea hacer?")
   print("\n1. Buscar en la base de datos")
   print("\n2. Jugar un partido de Truco")
   print('\n3. Ajustes de usuario')
@@ -24,10 +24,13 @@ while opcion != 4:
   
   elif opcion == 2:
     ganador, perdedor, resultado = Jugar(lista_jugadores)
-    partida_jugada = Partida(ganador,perdedor, resultado)
+    partida_jugada = Partida(ganador, perdedor, resultado, lista_partidas)
     partida_a_agregar = [partida_jugada.codigo, partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, partida_jugada.fecha]
-    lista_partidas.append()
-  
+    lista_partidas.append(partida_a_agregar)
+    escritura ('archivo_partidas.csv', lista_partidas)
+    print(lista_partidas)
+  #hay que agregar al objeto jugador 1 partida como ganada/jugada, en caso de ser al menos uno usuario
+
   elif opcion == 3:
     print('Bienvenido al menu de ajustes. ')
     print('1. Crear un usuario')
