@@ -1,4 +1,4 @@
-from random import shuffle, randint
+from random import shuffle
 from datetime import date
 
 def PedirDNI ():
@@ -45,6 +45,13 @@ def PedirMail ():
   
   return mail
  
+def Validar (lista, objeto, parametro):
+  existe = False
+  for jugador in lista:
+    if jugador[parametro] == objeto:
+      existe = True
+  return existe
+
 PALOS = ["Oro", "Espada", "Copa", "Basto"] # Variable global en mayúsculas Guía PEP-8
 NUMEROS = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12]
 
@@ -204,7 +211,14 @@ class Jugador():
     self.partidas_ganadas = partidas_ganadas
     self.usuario = usuario
   
-  def modificar(self):
+  def gano_partida(self):
+    self.partidas_ganadas += 1
+    self.partidas_jugadas += 1
+  
+  def jugo_partida (self):
+    self.partidas_jugadas += 1
+
+  def modificar(self, lista):
     print("Usted ha decidido modificar su usuario. Que atributo desea modificar?")
     print("\n1. Nombre")
     print("\n2. Apellido")
@@ -237,13 +251,23 @@ class Jugador():
 
     elif opcion == 3:
       print("Usted ha elegido modificar su DNI.")
-      dni_nuevo = PedirDNI()
+      dni_nuevo = PedirDNI ()
+      existe = Validar (lista, dni_nuevo, 2)
+      while existe == True:
+        print('DNI ya existente. Vuelva a intentarlo.')
+        dni_nuevo = PedirDNI ()
+        existe = Validar (lista, dni_nuevo, 2)
       self.dni = dni_nuevo
       print('\nDNI cambiado con exito.')
       
     elif opcion == 4:
       print("Usted ha elegido modificar su mail.")
       mail_nuevo = PedirMail()
+      existe = Validar (lista, mail_nuevo, 3)
+      while existe == True:
+        print('mail ya existente. Vuelva a intentarlo.')
+        mail_nuevo = PedirMail ()
+        existe = Validar (lista, mail_nuevo, 3)
       self.mail = mail_nuevo
       print('\nMail cambiado con exito.')
     
@@ -261,7 +285,18 @@ class Jugador():
       print('\nContraseña cambiada con exito.')
     
     elif opcion == 6:
-      pass
+      usuario_nuevo = input('Ingrese su usuario: ')
+      existe = Validar (lista, usuario_nuevo, 7)
+      while existe == True:
+        print('Nombre de usuario ya existente. Vuelva a intentarlo.')
+        usuario_nuevo = input('Ingrese su usuario: ')
+        existe = Validar (lista, usuario_nuevo, 7)
+      self.usuario = usuario_nuevo
+      print('\nUsuario cambiado con exito.')
+  
+  def __str__ (self):
+    return "Usuario: {}\nNombre: {}\nApellido: {}\nMail: {}\nPartidas jugadas: {}\nPorcentaje de victoria: {}".fromat(self.usuario, self.nombre, self.apellido, self.mail, self.partidas_jugadas, float(self.partidas_ganadas/self.partidas_jugadas))
+  
 
 
 class Jugadores():

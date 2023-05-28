@@ -513,15 +513,14 @@ def Jugar(lista):
   print('2. Invitado')
   opcion = ValidarRTA (2)
 
-
-  jug1_usuario = False
-  jug2_usuario = False
+  p1_usuario = False
+  p2_usuario = False
 
   if opcion == 1:
     nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1 = IniciarSesion (lista)
     jugador1 = Jugador (nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1)
     p1 = jugador1.usuario
-    jug1_usuario = True
+    p1_usuario = True
   
   else:
     nombre1 = input ('Ingrese su nombre por favor: ')
@@ -538,11 +537,11 @@ def Jugar(lista):
     nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2 = IniciarSesion (lista)
     jugador2 = Jugador (nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2)
     p2 = jugador2.usuario
-    jug2_usuario = True
+    p2_usuario = True
   
   else:
     nombre2 = input ('Ingrese su nombre por favor: ')
-    p2 = 'Invitado '+nombre2
+    p2 = 'Invitado '+ nombre2
   
   puntos2 = 0
   
@@ -797,15 +796,43 @@ def Jugar(lista):
     resultado = str(puntos2) + "-" + str(puntos1)
     print('\nFELICITACIONES ' + p2 + ', USTED HA GANAD0!')
     print('\nSe ha guardado el registro de la partida completo, el jugador '+p2+' ha derrotado a '+p1+' con un resultado de '+resultado+'.')
-  
+    if p1_usuario == True:
+      jugador1.jugo_partida()
+      for jugador in range(len(lista)):
+        if jugador1.usuario == lista[jugador][7]:
+          lista.pop(jugador)
+          lista.append([jugador1.nombre,jugador1.apellido,jugador1.DNI,jugador1.mail,jugador1.clave,jugador1.partidas_jugadas,jugador1.partidas_ganadas,jugador1.usuario])
+
+    if p2_usuario == True:
+      jugador2.gano_partida()
+      for jugador in range(len(lista)):
+        if jugador2.usuario == lista[jugador][7]:
+          lista.pop(jugador)
+          lista.append([jugador2.nombre,jugador2.apellido,jugador2.DNI,jugador2.mail,jugador2.clave,jugador2.partidas_jugadas,jugador2.partidas_ganadas,jugador2.usuario])
+
   else:
     ganador_final = p1
     perdedor_final = p2
     resultado = str(puntos1) + "-"+str(puntos2)
     print('\nFELICITACIONES ' + p1 + ', USTED HA GANAD0!')
     print('\nSe ha guardado el registro de la partida completo, el jugador '+p1+' ha derrotado a '+p2+' con un resultado de '+resultado+'.')
+    if p1_usuario == True:
+      jugador1.gano_partida()
+      for jugador in range(len(lista)-1):
+        if jugador1.usuario == lista[jugador][7]:
+          lista.pop(jugador)
+          lista.append([jugador1.nombre,jugador1.apellido,jugador1.DNI,jugador1.mail,jugador1.clave,jugador1.partidas_jugadas,jugador1.partidas_ganadas,jugador1.usuario])
+
+    if p2_usuario == True:
+      jugador2.jugo_partida()
+      for jugador in range(len(lista)):
+        if jugador2.usuario == lista[jugador][7]:
+          lista.pop(jugador)
+          lista.append([jugador2.nombre,jugador2.apellido,jugador2.DNI,jugador2.mail,jugador2.clave,jugador2.partidas_jugadas,jugador2.partidas_ganadas,jugador2.usuario])
   
-  return ganador_final, perdedor_final, resultado
+    
+
+  return ganador_final, perdedor_final, resultado, lista
   
   
   

@@ -1,5 +1,6 @@
 from Clases_Juego import *
 import csv
+from datetime import *
 
 def CantarTruco (p1, p2): 
 
@@ -364,7 +365,7 @@ def tirar_2(jugador,cartas):
     if j != cartas [op-1]:
       lista.append(j)
   
-  return cartas[op],lista
+  return cartas[op-1],lista
 
 
 def tirar_1 (jugador, cartas):
@@ -508,7 +509,7 @@ def PedirUsuario ():
   return usuario
 
 
-def PedirDatos (lista):
+def CrearUsuario (lista):
   
   nombre = input('Ingrese su nombre: ')
   apellido = input('Ingrese su apellido: ')
@@ -519,14 +520,14 @@ def PedirDatos (lista):
     dni = PedirDNI ()
     existe = Validar (lista, dni, 2)
     while existe == True:
-      print('DNI ya ingresado. Vuelva a intentarlo.')
+      print('DNI ya existente. Vuelva a intentarlo.')
       dni = PedirDNI ()
       existe = Validar (lista, dni, 2)
     
     mail = PedirMail ()
     existe = Validar (lista, mail, 3)
     while existe == True:
-      print('mail ya ingresado. Vuelva a intentarlo.')
+      print('mail ya existente. Vuelva a intentarlo.')
       mail = PedirMail ()
       existe = Validar (lista, mail, 3)
     
@@ -543,32 +544,6 @@ def PedirDatos (lista):
   return nombre, apellido, dni, mail, clave, usuario
 
 
-def lectura(archivo):
-  variable = ""
-  lista_var = []
-  for caracter in archivo:
-    if caracter != "/":
-      variable += caracter
-    else:
-      lista_var.append(variable)
-      variable = ""
-
-  var2 = ""
-  lista_var_final = []
-
-  for i in lista_var:
-    aux = []
-    for caracter in i:
-      if caracter != ";":
-        var2 += caracter
-      else:
-        aux.append(var2)
-        var2 = ""
-    lista_var_final += [aux]
-    
-  return lista_var_final
-
-
 def IniciarSesion (lista):
 
   print('Usted ha decidido iniciar sesion. ')
@@ -576,42 +551,166 @@ def IniciarSesion (lista):
   inicio = False
 
   while inicio == False:
-    usuario = PedirUsuario ()
-    clave = Pedirclave ()
+    usuario = input('Usuario: ')
+    clave = input('Contraseña: ')
     for jugador in lista:
       if jugador[7] == usuario and jugador[4] == clave:
         inicio = True
         nombre = jugador[0]
         apellido = jugador[1]
-        dni = jugador[2]
+        dni = int(jugador[2])
         mail = jugador[3]
-        partidas_jug = jugador[5]
-        partidas_gan = jugador[6]
+        partidas_jug = int(jugador[5])
+        partidas_gan = int(jugador[6])
 
-    
     if inicio == False:
       print('El nombre de usuario o contraseña son incorrectos. Por favor, vuelva a intentarlo.')
   
   return nombre, apellido, dni, mail, clave, partidas_jug, partidas_gan, usuario
 
 
-def lectura(file):
+def lectura_jugadores (file):
     lista = []
-    with open(file, newline='') as archivo:  
-        jugadores = csv.reader(archivo)
-        for jugador in jugadores:
-            lista += [jugador]
-        lista.pop(0)
+    with open(file, newline = '') as archivo:  
+      jugadores = csv.reader(archivo)
+      for jugador in jugadores:
+        lista += [jugador]
+    
+    for jugador in lista:
+      jugador[2] = int(jugador[2])
+      jugador[5] = int(jugador[5])
+      jugador[6] = int(jugador[6])
+
     return lista
+
+
+def lectura_partidas (file):
+  lista = []
+  with open(file, newline = '') as archivo:  
+    jugadores = csv.reader(archivo)
+    for jugador in jugadores:
+      lista += [jugador]
+  return lista
 
 
 def escritura(archivo:str, matriz):
     
-    fila0 = ['codigo','ganador','perdedor','resultado','fecha']
-    
     with open(archivo, "w", newline = "") as file:
-        write = csv.writer(file, delimiter = ",")
-        write.writerow(fila0)
         writer = csv.writer(file, delimiter = ",")
         writer.writerows(matriz)
     return
+
+
+def Historial (lista, opcion, filtro, parametro):
+  historial = ''
+  if opcion == 0:
+    for i in range(len(lista)):
+      historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
+    
+  if opcion == 1:
+    for i in range(len(lista)):
+      if lista[i][parametro] == filtro:
+        historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
+
+  if opcion == 2:
+    for i in range(len(lista)):
+      if lista[i][1] == filtro or lista[i][2] == filtro:
+        historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
+
+  return historial
+
+def ValidarFecha ():
+  rta_valida = False
+  while rta_valida == False:
+    try:
+      anio = int(input('Ingrese el anio: '))
+      while anio > 2023:
+        anio = int(input('Anio invalido, vuelva a intentarlo: '))  #usar date
+      rta_valida = True
+    except:
+      print('Error. Vuelva a intentarlo.')
+  
+  rta_valida = False
+  while rta_valida == False:
+    try:
+      mes = int(input('Ingrese el mes: '))
+      while mes > 12 or mes < 1:
+        mes = int(input('Mes invalido, vuelva a intentarlo: '))  #usar date
+      rta_valida = True
+    except:
+      print('Error. Vuelva a intentarlo.')
+  
+  rta_valida = False
+  while rta_valida == False:
+    try:
+      
+      dia = int(input('Ingrese el dia: '))
+
+      if mes == 1 or mes == 3 or mes == 5 or mes == 7 or mes == 8 or mes == 10 or mes == 12:
+        while dia > 31 or dia < 0:
+          anio = int(input('Dia invalido, vuelva a intentarlo: '))  #usar date
+      
+      elif mes == 4 or mes == 6 or mes == 9 or mes == 11:
+        while dia > 30 or dia < 0:
+          anio = int(input('Dia invalido, vuelva a intentarlo: '))  #usar 
+        
+      elif mes == 2:
+        while dia >28 or dia < 0:
+          anio = int(input('Dia invalido, vuelva a intentarlo: '))  #usar 
+
+      rta_valida = True
+
+    except:
+      print('Error. Vuelva a intentarlo.')
+  
+  fecha = str(anio) + '/' + str(mes) + '/' + str(dia)
+  fecha_dt = datetime.strptime(fecha, '%Y-%m-%d')     #Falta, ni idea
+
+def BuscarPartida (lista):
+  print('Bienvenido al buscador de partidas, como desea filtrar su busqueda?')
+  print('1. Por codigo de partida')
+  print('2. Por usuario')
+  print('3. Por fecha')
+  opcion = ValidarRTA (3)
+
+  if opcion == 1:
+    print('Usted ha elegido filtrar por codigo de partida.')
+    rta_valida = False
+    while rta_valida == False:
+      try:
+        cod = int(input('\nIngrese el numero de codigo: '))
+        rta_valida = True
+      except:
+        print('Recuerde que el codigo debe ser un numero.')
+    
+    aux=''
+    largo = len(cod)
+    for i in range(7-largo):
+      aux += '0'
+    codigo = aux + cod
+
+    historial = Historial (lista, 1, codigo, 0)
+
+  elif opcion == 2:
+    print('Usted ha elegido filtrar por usuario. Recuerde que apareceran todas las partidas de dicho usuario. Tambien puede buscar las de invitados anteponiendo el prefijo *Invitado *.')
+    usuario = input('Ingrese el nombre de usuario: ')
+    historial = Historial (lista, 2, usuario, 0)
+    if historial == '':
+      historial += 'No se han encontrado partidas para dicho usuario.'
+  
+  elif opcion == 3:
+    rta_valida = False
+    while rta_valida == False:
+      try:
+        anio = int(input('Ingrese el anio: '))
+        while anio > 2023:
+          anio = int(input('Anio invalido, vuelva a intentarlo: '))  #usar date
+        rta_valida = True
+      except:
+        print('Error. Vuelva a intentarlo.')
+    
+
+  
+
+  return historial
+        

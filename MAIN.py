@@ -3,8 +3,8 @@ from JUGAR import *
 from Clases_Juego import *
 
 
-lista_jugadores = lectura ('archivo_jugadores.csv')
-lista_partidas = lectura ('archivo_partidas.csv')
+lista_jugadores = lectura_jugadores ('archivo_jugadores.csv')
+lista_partidas = lectura_partidas ('archivo_partidas.csv')
 
 
 opcion = 1
@@ -19,17 +19,40 @@ while opcion != 4:
 
   opcion = ValidarRTA(4)
   
-  if opcion == 1: ##########################
-    x = 10
+  if opcion == 1: 
+    print('\nBienvenido al sector de analisis de datos. Que desea buscar?')
+    print('1. Perfil de un usuario')
+    print('2. Ver el registro de partidas')
+    print('3. Buscar una partida particular')
+    opcion = ValidarRTA (3)
+
+    if opcion == 1:
+      existe = False
+      while existe == False:
+        us = input('\nIngrese el usuario que desea buscar: ')
+        for jugador in lista_jugadores:
+          if jugador[7] == us:
+            p = Jugador(jugador[0],jugador[1],jugador[2],jugador[3],jugador[4],jugador[5],jugador[6],jugador[7])
+            print(p)
+            existe = True
+        if existe == False:
+          print('Jugador no encontrado. Vuelva a intentarlo por favor.')
+    
+    elif opcion == 2:
+      print(Historial(lista_partidas))
+        
+    elif opcion == 3:
+      pass
+
   
   elif opcion == 2:
-    ganador, perdedor, resultado = Jugar(lista_jugadores)
+    ganador, perdedor, resultado, lista_jugadores = Jugar(lista_jugadores)
     partida_jugada = Partida(ganador, perdedor, resultado, lista_partidas)
     partida_a_agregar = [partida_jugada.codigo, partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, partida_jugada.fecha]
     lista_partidas.append(partida_a_agregar)
     escritura ('archivo_partidas.csv', lista_partidas)
-    print(lista_partidas)
-  #hay que agregar al objeto jugador 1 partida como ganada/jugada, en caso de ser al menos uno usuario
+    escritura ('archivo_jugadores.csv', lista_jugadores)
+    
 
   elif opcion == 3:
     print('Bienvenido al menu de ajustes. ')
@@ -39,7 +62,7 @@ while opcion != 4:
 
     if opcion == 1:
       
-      nombre, apellido, dni, mail, clave, usuario = PedirDatos (lista_jugadores)
+      nombre, apellido, dni, mail, clave, usuario = CrearUsuario (lista_jugadores)
       jugador = Jugador (nombre, apellido, dni, mail, clave, 0, 0, usuario)
       lista_jugadores += [jugador.nombre, jugador.apellido, jugador.DNI, jugador.mail, jugador.clave, jugador.partidas_jugadas, jugador.partidas_ganadas, jugador.usuario]
       escritura ('archivo_jugadores.csv', lista_jugadores)
@@ -55,9 +78,15 @@ while opcion != 4:
         if lista_jugadores[jugador][7] == usuario_en_sesion.usuario:
           lista_jugadores.pop(jugador)
       
-      usuario_en_sesion.modificar()
-      lista_jugadores.append(usuario_en_sesion.nombre, usuario_en_sesion.apellido, usuario_en_sesion.DNI, usuario_en_sesion.mail, usuario_en_sesion.clave, usuario_en_sesion.partidas_jugadas, usuario_en_sesion.partidas_ganadas, usuario_en_sesion.usuario)
+      seguir = 1
+      while seguir != 2:
+        usuario_en_sesion.modificar(lista_jugadores)
+        print('Quiere seguir modificando su usuario?')
+        print('1. Si')
+        print('2. No')
+        seguir = ValidarRTA(2)
 
+      lista_jugadores.append(usuario_en_sesion.nombre, usuario_en_sesion.apellido, usuario_en_sesion.DNI, usuario_en_sesion.mail, usuario_en_sesion.clave, usuario_en_sesion.partidas_jugadas, usuario_en_sesion.partidas_ganadas, usuario_en_sesion.usuario)
       escritura ('archivo_jugadores.csv', lista_jugadores)
 
 
