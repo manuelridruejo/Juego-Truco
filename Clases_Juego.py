@@ -239,13 +239,13 @@ class Jugador():
 
     if opcion == 1:
       print("Usted ha elegido modificar su nombre")
-      nombre_nuevo = input("Ingrese la informacion nueva")
+      nombre_nuevo = input("Ingrese la informacion nueva: ")
       self.nombre = nombre_nuevo
       print('\nNombre cambiado con exito.')
 
     elif opcion == 2:
       print("Usted ha elegido modificar su apellido.")
-      apellido_nuevo = input("Ingrese la informacion nueva.")
+      apellido_nuevo = input("Ingrese la informacion nueva: ")
       self.apellido = apellido_nuevo
       print('\nApellido cambiado con exito.')
 

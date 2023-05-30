@@ -74,9 +74,12 @@ while opcion != 4:
       nombre_us, apellido_us, dni, mail, clave, partidas_jug, partidas_gan, usuario_sesion = IniciarSesion (lista_jugadores)
       usuario_en_sesion = Jugador (nombre_us, apellido_us, dni, mail, clave, partidas_jug, partidas_gan, usuario_sesion)
       
+      usuario_a_modificar = 0
       for jugador in range(len(lista_jugadores)):
         if lista_jugadores[jugador][7] == usuario_en_sesion.usuario:
-          lista_jugadores.pop(jugador)
+          usuario_a_modificar = jugador
+      
+      lista_jugadores.pop(usuario_a_modificar)
       
       seguir = 1
       while seguir != 2:
@@ -86,9 +89,10 @@ while opcion != 4:
         print('2. No')
         seguir = ValidarRTA(2)
 
+      print('\nDatos cambiados con exito!')
+
       lista_jugadores.append([usuario_en_sesion.nombre, usuario_en_sesion.apellido, usuario_en_sesion.DNI, usuario_en_sesion.mail, usuario_en_sesion.clave, usuario_en_sesion.partidas_jugadas, usuario_en_sesion.partidas_ganadas, usuario_en_sesion.usuario])
       escritura ('archivo_jugadores.csv', lista_jugadores)
-
 
   elif opcion == 4:
     print('\nGracias por usar nuestro codigo!')
