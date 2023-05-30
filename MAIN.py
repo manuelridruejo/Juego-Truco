@@ -64,7 +64,7 @@ while opcion != 4:
       
       nombre, apellido, dni, mail, clave, usuario = CrearUsuario (lista_jugadores)
       jugador = Jugador (nombre, apellido, dni, mail, clave, 0, 0, usuario)
-      lista_jugadores += [jugador.nombre, jugador.apellido, jugador.DNI, jugador.mail, jugador.clave, jugador.partidas_jugadas, jugador.partidas_ganadas, jugador.usuario]
+      lista_jugadores += [[jugador.nombre, jugador.apellido, jugador.DNI, jugador.mail, jugador.clave, jugador.partidas_jugadas, jugador.partidas_ganadas, jugador.usuario]]
       escritura ('archivo_jugadores.csv', lista_jugadores)
 
       print('\nEl jugador ha sido ingresado con exito!')
@@ -86,7 +86,7 @@ while opcion != 4:
         print('2. No')
         seguir = ValidarRTA(2)
 
-      lista_jugadores.append(usuario_en_sesion.nombre, usuario_en_sesion.apellido, usuario_en_sesion.DNI, usuario_en_sesion.mail, usuario_en_sesion.clave, usuario_en_sesion.partidas_jugadas, usuario_en_sesion.partidas_ganadas, usuario_en_sesion.usuario)
+      lista_jugadores.append([usuario_en_sesion.nombre, usuario_en_sesion.apellido, usuario_en_sesion.DNI, usuario_en_sesion.mail, usuario_en_sesion.clave, usuario_en_sesion.partidas_jugadas, usuario_en_sesion.partidas_ganadas, usuario_en_sesion.usuario])
       escritura ('archivo_jugadores.csv', lista_jugadores)
 
 

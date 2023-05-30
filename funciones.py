@@ -538,8 +538,8 @@ def CrearUsuario (lista):
       usuario = PedirUsuario ()
       existe = Validar (lista, usuario, 7)
 
-  
-    clave = Pedirclave () 
+    usuario_nuevo = True
+    clave = Pedirclave ()
 
   return nombre, apellido, dni, mail, clave, usuario
 
