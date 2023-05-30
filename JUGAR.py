@@ -564,7 +564,7 @@ def Jugar(lista):
 
     print('\nComienza la ronda '+str(ronda)+'!')
 
-    print('\n'+mano, 'es MANO.')
+    print('\n' + mano, 'es MANO.')
     mostrar_cartas(cartasmano)
     print('\n')
     print(pie, 'es PIE.')

@@ -13,9 +13,9 @@ while opcion != 4:
 
   print("\n\n\nBienvenido! Que desea hacer?")
   print("\n1. Buscar en la base de datos")
-  print("\n2. Jugar un partido de Truco")
-  print('\n3. Ajustes de usuario')
-  print("\n4. Salir")
+  print("2. Jugar un partido de Truco")
+  print('3. Ajustes de usuario')
+  print("4. Salir")
 
   opcion = ValidarRTA(4)
   
