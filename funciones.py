@@ -602,30 +602,36 @@ def escritura(archivo:str, matriz):
 
 
 def Historial (lista, opcion, filtro, parametro):
+  
   historial = ''
+
   if opcion == 0:
     for i in range(len(lista)):
       historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
     
-  if opcion == 1:
+  elif opcion == 1:
     for i in range(len(lista)):
       if lista[i][parametro] == filtro:
         historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
 
-  if opcion == 2:
+  elif opcion == 2:
     for i in range(len(lista)):
       if lista[i][1] == filtro or lista[i][2] == filtro:
         historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
 
+  if historial == '':
+    historial += 'No se han encontrado partidas bajos tales parametros'
+
   return historial
+
 
 def ValidarFecha ():
   rta_valida = False
   while rta_valida == False:
     try:
       anio = int(input('Ingrese el anio: '))
-      while anio > 2023:
-        anio = int(input('Anio invalido, vuelva a intentarlo: '))  #usar date
+      while anio > date.today().year or anio < 2023:
+        anio = int(input('Anio invalido. Las partidas datan del 2023 en adelante. Vuelva a intentarlo: ')) 
       rta_valida = True
     except:
       print('Error. Vuelva a intentarlo.')
@@ -635,7 +641,7 @@ def ValidarFecha ():
     try:
       mes = int(input('Ingrese el mes: '))
       while mes > 12 or mes < 1:
-        mes = int(input('Mes invalido, vuelva a intentarlo: '))  #usar date
+        mes = int(input('Mes invalido, vuelva a intentarlo: '))
       rta_valida = True
     except:
       print('Error. Vuelva a intentarlo.')
@@ -662,9 +668,30 @@ def ValidarFecha ():
 
     except:
       print('Error. Vuelva a intentarlo.')
+
+  fecha = str(anio) + '-' + str(mes) + '-' + str(dia)
+  fecha_dt = datetime.strptime(fecha, '%Y-%m-%d').date()    
+
+  return fecha_dt
+
+
+def ValidarCodigo ():
+  rta_valida = False
+  while rta_valida == False:
+    try:
+      cod = int(input('\nIngrese el numero de codigo: '))
+      rta_valida = True
+      cod = str(cod)
+    except:
+      print('Recuerde que el codigo debe ser un numero.')
   
-  fecha = str(anio) + '/' + str(mes) + '/' + str(dia)
-  fecha_dt = datetime.strptime(fecha, '%Y-%m-%d')     #Falta, ni idea
+  aux=''
+  largo = len(cod)
+  for i in range(7-largo):
+    aux += '0'
+  codigo = aux + cod
+
+  return codigo
 
 def BuscarPartida (lista):
   print('Bienvenido al buscador de partidas, como desea filtrar su busqueda?')
@@ -675,42 +702,19 @@ def BuscarPartida (lista):
 
   if opcion == 1:
     print('Usted ha elegido filtrar por codigo de partida.')
-    rta_valida = False
-    while rta_valida == False:
-      try:
-        cod = int(input('\nIngrese el numero de codigo: '))
-        rta_valida = True
-      except:
-        print('Recuerde que el codigo debe ser un numero.')
-    
-    aux=''
-    largo = len(cod)
-    for i in range(7-largo):
-      aux += '0'
-    codigo = aux + cod
-
+    codigo = ValidarCodigo ()
     historial = Historial (lista, 1, codigo, 0)
 
   elif opcion == 2:
     print('Usted ha elegido filtrar por usuario. Recuerde que apareceran todas las partidas de dicho usuario. Tambien puede buscar las de invitados anteponiendo el prefijo *Invitado *.')
     usuario = input('Ingrese el nombre de usuario: ')
     historial = Historial (lista, 2, usuario, 0)
-    if historial == '':
-      historial += 'No se han encontrado partidas para dicho usuario.'
+    if historial == 'No se han encontrado partidas bajos tales parametros':
+      historial = 'No se han encontrado partidas para dicho usuario.'
   
   elif opcion == 3:
-    rta_valida = False
-    while rta_valida == False:
-      try:
-        anio = int(input('Ingrese el anio: '))
-        while anio > 2023:
-          anio = int(input('Anio invalido, vuelva a intentarlo: '))  #usar date
-        rta_valida = True
-      except:
-        print('Error. Vuelva a intentarlo.')
-    
-
-  
+    fecha = ValidarFecha()
+    historial = Historial (lista, 1, fecha, 4)
 
   return historial
         

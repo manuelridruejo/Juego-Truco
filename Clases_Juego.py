@@ -295,7 +295,7 @@ class Jugador():
       print('\nUsuario cambiado con exito.')
   
   def __str__ (self):
-    return "Usuario: {}\nNombre: {}\nApellido: {}\nMail: {}\nPartidas jugadas: {}\nPorcentaje de victoria: {}".fromat(self.usuario, self.nombre, self.apellido, self.mail, self.partidas_jugadas, float(self.partidas_ganadas/self.partidas_jugadas))
+    return "Usuario: {}\nNombre: {}\nApellido: {}\nMail: {}\nPartidas jugadas: {}\nPorcentaje de victoria: {}".format(self.usuario, self.nombre, self.apellido, self.mail, self.partidas_jugadas, float(round(self.partidas_ganadas/self.partidas_jugadas, 2)))
   
 
 

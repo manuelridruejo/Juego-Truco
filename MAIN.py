@@ -23,7 +23,7 @@ while opcion != 4:
     print('\nBienvenido al sector de analisis de datos. Que desea buscar?')
     print('1. Perfil de un usuario')
     print('2. Ver el registro de partidas')
-    print('3. Buscar una partida particular')
+    print('3. Buscar partida/s particular/es')
     opcion = ValidarRTA (3)
 
     if opcion == 1:
@@ -39,10 +39,10 @@ while opcion != 4:
           print('Jugador no encontrado. Vuelva a intentarlo por favor.')
     
     elif opcion == 2:
-      print(Historial(lista_partidas))
+      print(Historial(lista_partidas, 0, '', 0))
         
     elif opcion == 3:
-      pass
+      print(BuscarPartida(lista_partidas))
 
   
   elif opcion == 2:
