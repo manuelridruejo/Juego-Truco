@@ -23,19 +23,19 @@ while opcion != 4:
     print('2. Ver el registro de partidas')
     print('3. Buscar partida/s particular/es')
     print('4. Ranking mensual de jugadores')
-    opcion = ValidarRTA (4)
+    opcion2 = ValidarRTA (4)
 
-    if opcion == 1:
+    if opcion2 == 1:
       BuscarJugador()
     
-    elif opcion == 2:
+    elif opcion2 == 2:
       print(RegistroPartidas(lista_partidas))
         
-    elif opcion == 3:
+    elif opcion2 == 3:
       print(BuscarPartidaParticular(lista_partidas))
     
-    elif opcion == 4:
-      print(RankingMensual(lista_partidas))
+    elif opcion2 == 4:
+      print(Ranking(lista_partidas, lista_jugadores))
 
   
   elif opcion == 2:

@@ -1,5 +1,4 @@
 from random import shuffle
-from datetime import date
 from AA_validaciones import *
 from AA_CONSTANTES import *
 

@@ -169,8 +169,73 @@ def RegistroPartidas (lista):
   return historial
 
 
-def RankingMensual (lista):
-  pass
+def Ranking (lista_partidas, lista_jugadores):      #Ranking de usuarios. Opcion determina si es de todo el tiempo, mensual o semanal
+  print('Bienvenido al buscador de ranking de usuarios. Como desea filtrar su busqueda?')
+  print('1. Ver el ranking de todo el tiempo')
+  print('2. Ver el ranking mensual')
+  print('3. Ver el ranking semanal')
+  opcion = ValidarRTA(3)
+
+  ranking = ''
+
+  if opcion == 1:
+    ranking = RankingAllTime (lista_partidas, lista_jugadores)
+  
+  elif opcion == 2:
+    ranking = RankingAcotado (lista_partidas, lista_jugadores, 30)
+
+  elif opcion == 3:
+    ranking = RankingAcotado (lista_partidas, lista_jugadores, 7)
+  
+  return ranking
+      
+
+def RankingAcotado (lista_partidas, lista_jugadores, cota):
+
+  fecha_actual = date.today()
+  delta = timedelta(days = -cota)
+  fecha_limite = fecha_actual + delta
+  victorias_x_jugador = []
+
+  for jugador in lista_jugadores:
+    victorias = 0
+    for partida in lista_partidas:
+      if datetime.strptime(partida[4], '%Y-%m-%d').date() >= fecha_limite:
+        if partida[1] == jugador [7]:
+          victorias += 1
+      else: 
+        pass
+    victorias_x_jugador += [[jugador[7], victorias]]
+
+  lista_ordenada = sorted(victorias_x_jugador, key=lambda x: x[1], reverse=True)
+
+  ranking = MostrarRanking (lista_ordenada)
+
+  return ranking
+
+
+def RankingAllTime (lista_partidas, lista_jugadores):
+  victorias_x_jugador = []
+  for jugador in lista_jugadores:
+    victorias = 0
+    for partida in lista_partidas:
+      if partida[1] == jugador [7]:
+        victorias += 1
+    victorias_x_jugador += [[jugador[7], victorias]]
+
+  lista_ordenada = sorted(victorias_x_jugador, key=lambda x: x[1], reverse=True)
+
+  ranking = MostrarRanking (lista_ordenada)
+
+  return ranking
+
+
+def MostrarRanking (lista):
+  ranking = ''
+  for jugador in lista:
+    ranking += '\n{}: {} victorias'.format(jugador[0], jugador[1])
+  
+  return ranking
 
 
 def PartidaxJugador (lista, usuario):
@@ -207,10 +272,11 @@ def UltimasNPartidas (lista, N):
   if N > len(lista):
     print('\nNo hay tal cantidad de partidas. Aqui mostraremos todas las disponibles.')
   for i in range(len(lista)-1,-1,-1):
-    while cont < N:
+    if cont < N:
       historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
       cont += 1
-      break #buscar si se puede hacer de otra forma
+    else:
+      pass
   return historial
 
 
