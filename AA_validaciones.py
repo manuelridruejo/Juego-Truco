@@ -24,57 +24,19 @@ def Validar (lista, atributo, parametro):
 def ValidarRTA (parametro):
   
   rta_valida = False
+  lista = []
+  for i in range(parametro):
+    lista += [i+1]
+  
+  while rta_valida == False:
+    try:
+      opcion = int(input('\nElija: '))
+      while opcion not in lista: 
+        opcion = int(input('\nElija un numero disponible por favor: '))
+      rta_valida = True
+    except:
+      rta_valida = False
 
-  if parametro == 1:
-    while rta_valida == False:
-      try:
-        opcion = int(input('\nElija: '))
-        while opcion not in [1]: 
-          opcion = int(input('\nElija 1 por favor: '))
-        rta_valida = True
-      except:
-        rta_valida = False
-      
-  elif parametro == 2:
-    while rta_valida == False:
-      try:
-        opcion = int(input('\nElija: '))
-        while opcion not in [1, 2]: 
-          opcion = int(input('\nElija 1 o 2 por favor: '))
-        rta_valida = True
-      except:
-        rta_valida = False
-  
-  elif parametro == 3:
-    while rta_valida == False:
-      try:
-        opcion = int(input('\nElija: '))
-        while opcion not in [1, 2, 3]: 
-          opcion = int(input('\nElija 1, 2 o 3 por favor: '))
-        rta_valida = True
-      except:
-        rta_valida = False
-  
-  elif parametro == 4:
-    while rta_valida == False:
-      try:
-        opcion = int(input('\nElija: '))
-        while opcion not in [1, 2, 3, 4]: 
-          opcion = int(input('\nElija 1, 2, 3 o 4 por favor: '))
-        rta_valida = True
-      except:
-        rta_valida = False
-  
-  elif parametro == 5:
-    while rta_valida == False:
-      try:
-        opcion = int(input('\nElija: '))
-        while opcion not in [1, 2, 3, 4, 5]: 
-          opcion = int(input('\nElija 1, 2, 3, 4 o 5 por favor: '))
-        rta_valida = True
-      except:
-        rta_valida = False
-  
   return opcion
 
 

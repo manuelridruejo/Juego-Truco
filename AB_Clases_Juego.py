@@ -104,15 +104,7 @@ class Jugador():
     print('\n5. clave')
     print('\n6. usuario')
 
-    rta_valida = False
-    while rta_valida == False:
-      try:
-        opcion = int(input('\nElija: '))
-        while opcion not in [1, 2, 3, 4, 5, 6]: 
-          opcion = int(input('\nElija 1, 2, 3, 4, 5 o 6 por favor: '))
-        rta_valida = True
-      except:
-        rta_valida = False
+    opcion = ValidarRTA(6)
 
     if opcion == 1:
       print("Usted ha elegido modificar su nombre")
