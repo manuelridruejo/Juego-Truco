@@ -95,7 +95,7 @@ def IniciarSesion (lista):
   return nombre, apellido, dni, mail, clave, partidas_jug, partidas_gan, usuario
 
 
-def FiltrarJugador (lista):
+def BuscarJugador (lista):
   existe = False
   while existe == False:
     us = input('\nIngrese el usuario que desea buscar: ')
@@ -108,6 +108,71 @@ def FiltrarJugador (lista):
       print('Jugador no encontrado. Vuelva a intentarlo por favor.')
 
 
+def BuscarPartidaParticular (lista):
+  print('Bienvenido al buscador de partidas, como desea filtrar su busqueda?')
+  print('1. Por codigo de partida')
+  print('2. Por usuario')
+  print('3. Por fecha')
+  print('4. Buscar partidas del dia de hoy')
+  opcion = ValidarRTA (4)
+
+  if opcion == 1:
+    print('Usted ha elegido filtrar por codigo de partida.')
+    codigo = PedirCodigo ()
+    historial = PartidaParticular (lista, codigo, 0)
+
+  elif opcion == 2:
+    print('Usted ha elegido filtrar por usuario. Recuerde que apareceran todas las partidas de dicho usuario. Tambien puede buscar las de invitados anteponiendo el prefijo *Invitado *.')
+    usuario = input('Ingrese el nombre de usuario: ')
+    historial = PartidaxJugador (lista, usuario)
+    if historial == '':
+      historial = '\nNo se han encontrado partidas para dicho usuario.'
+  
+  elif opcion == 3:
+    fecha = ValidarFecha()
+    historial = PartidaParticular (lista, fecha, 4)
+
+  elif opcion == 4:
+    fecha = date.today()
+    historial = PartidaParticular (lista, fecha, 4)
+    if historial == '':
+      historial = '\nNo se encontraron partidas el dia de hoy'
+  
+  if historial == '':
+    historial = '\nNo se encontraron partidas bajo tales parametros'
+
+  return historial
+
+
+def RegistroPartidas (lista):
+  print('\nBienvenido al registro de partidas, que desea buscar?')
+  print('1. Ultimas N partidas')
+  print('2. Partidas a partir de DD/MM/YY')
+  print('3. Ver todo el registro de partidas')
+  opcion = ValidarRTA (3)
+
+  if opcion == 1:
+    print('Cuantas partidas desea ver?')
+    n = ValidarEntero ()
+    historial = UltimasNPartidas (lista, n)
+
+  elif opcion == 2:
+    fecha = ValidarFecha()
+    historial = PartidaxFecha (lista, fecha)
+
+  elif opcion == 3:
+    historial = TodasLasPartidas (lista)
+  
+  if historial == '':
+    historial = '\nNo se encontraron partidas bajo tales parametros'
+  
+  return historial
+
+
+def RankingMensual (lista):
+  pass
+
+
 def PartidaxJugador (lista, usuario):
   historial = ''       #Busca las partidas que haya jugado un jugador X, haya ganado o perdido
   for i in range(len(lista)):
@@ -115,6 +180,7 @@ def PartidaxJugador (lista, usuario):
       historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
 
   return historial
+
 
 def PartidaxFecha (lista, fecha):         #Busca todas las partidas que hayan sucedido despues de una cierta fecha
   historial = ''
@@ -154,66 +220,3 @@ def TodasLasPartidas (lista):
     historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
   return historial
 
-
-def BuscarPartidaParticular (lista):
-  print('Bienvenido al buscador de partidas, como desea filtrar su busqueda?')
-  print('1. Por codigo de partida')
-  print('2. Por usuario')
-  print('3. Por fecha')
-  print('4. Buscar partidas del dia de hoy')
-  opcion = ValidarRTA (4)
-
-  if opcion == 1:
-    print('Usted ha elegido filtrar por codigo de partida.')
-    codigo = PedirCodigo ()
-    historial = PartidaParticular (lista, codigo, 0)
-
-  elif opcion == 2:
-    print('Usted ha elegido filtrar por usuario. Recuerde que apareceran todas las partidas de dicho usuario. Tambien puede buscar las de invitados anteponiendo el prefijo *Invitado *.')
-    usuario = input('Ingrese el nombre de usuario: ')
-    historial = PartidaxJugador (lista, usuario)
-    if historial == '':
-      historial = '\nNo se han encontrado partidas para dicho usuario.'
-  
-  elif opcion == 3:
-    fecha = ValidarFecha()
-    historial = PartidaParticular (lista, fecha, 4)
-
-  elif opcion == 4:
-    fecha = date.today()
-    historial = PartidaParticular (lista, fecha, 4)
-    if historial == '':
-      historial = '\nNo se encontraron partidas el dia de hoy'
-  
-  if historial == '':
-    historial = '\nNo se encontraron partidas bajo tales parametros'
-
-  return historial
-
-def RegistroPartidas (lista):
-  print('\nBienvenido al registro de partidas, que desea buscar?')
-  print('1. Ultimas N partidas')
-  print('2. Partidas a partir de DD/MM/YY')
-  print('3. Ver todo el registro de partidas')
-  opcion = ValidarRTA (3)
-
-  if opcion == 1:
-    print('Cuantas partidas desea ver?')
-    n = ValidarEntero ()
-    historial = UltimasNPartidas (lista, n)
-
-  elif opcion == 2:
-    fecha = ValidarFecha()
-    historial = PartidaxFecha (lista, fecha)
-
-  elif opcion == 3:
-    historial = TodasLasPartidas (lista)
-  
-  if historial == '':
-    historial = '\nNo se encontraron partidas bajo tales parametros'
-  
-  return historial
-
-
-def RankingMensual (lista):
-  pass

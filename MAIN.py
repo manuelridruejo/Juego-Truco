@@ -26,7 +26,7 @@ while opcion != 4:
     opcion = ValidarRTA (4)
 
     if opcion == 1:
-      FiltrarJugador()
+      BuscarJugador()
     
     elif opcion == 2:
       print(RegistroPartidas(lista_partidas))
