@@ -1,6 +1,4 @@
-from funciones import *
-from JUGAR import *
-from Clases_Juego import *
+from AD_JUGAR import *
 
 
 lista_jugadores = lectura_jugadores ('archivo_jugadores.csv')
@@ -24,25 +22,20 @@ while opcion != 4:
     print('1. Perfil de un usuario')
     print('2. Ver el registro de partidas')
     print('3. Buscar partida/s particular/es')
-    opcion = ValidarRTA (3)
+    print('4. Ranking mensual de jugadores')
+    opcion = ValidarRTA (4)
 
     if opcion == 1:
-      existe = False
-      while existe == False:
-        us = input('\nIngrese el usuario que desea buscar: ')
-        for jugador in lista_jugadores:
-          if jugador[7] == us:
-            p = Jugador(jugador[0],jugador[1],jugador[2],jugador[3],jugador[4],jugador[5],jugador[6],jugador[7])
-            print(p)
-            existe = True
-        if existe == False:
-          print('Jugador no encontrado. Vuelva a intentarlo por favor.')
+      FiltrarJugador()
     
     elif opcion == 2:
-      print(Historial(lista_partidas, 0, '', 0))
+      print(RegistroPartidas(lista_partidas))
         
     elif opcion == 3:
-      print(BuscarPartida(lista_partidas))
+      print(BuscarPartidaParticular(lista_partidas))
+    
+    elif opcion == 4:
+      print(RankingMensual(lista_partidas))
 
   
   elif opcion == 2:

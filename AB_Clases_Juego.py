@@ -1,57 +1,7 @@
 from random import shuffle
 from datetime import date
-from CONSTANTES import *
-
-def PedirDNI ():
-  dni_mal = True
-  while dni_mal == True:
-    try:
-      dni = int(input("Ingrese el DNI: ")) 
-      while dni < 10000000 or dni > 99999999:
-        dni = int(input("DNI invalido. Por favor, ingrese el DNI (8 numeros): ")) 
-      dni_mal = False
-    except:
-      dni_mal = True
-  
-  return dni
-
-
-def PedirMail ():
-  mail = input('Ingrese su mail: ')
-  arroba = False
-  com = False
-
-  while com == False or arroba == False:
-    arroba = False
-    com = False
-    
-    for i in range(len(mail)):
-      if mail[i] == '@':
-        arroba = True
-      if mail[i] == '.':
-        try:
-          if mail[i] + mail[i + 1] + mail[i + 2] + mail[i + 3] == '.com':
-            com = True
-        except:
-          com = False
-        if com == False:
-          try:
-            if mail[i] + mail[i + 1] + mail[i + 2] == '.ar':
-              com = True
-          except:
-            com = False
-    
-    if arroba == False or com == False:
-      mail = input('Email incorrecto. Ingreselo nuevamente: ')
-  
-  return mail
- 
-def Validar (lista, objeto, parametro):
-  existe = False
-  for jugador in lista:
-    if jugador[parametro] == objeto:
-      existe = True
-  return existe
+from AA_validaciones import *
+from AA_CONSTANTES import *
 
 
 class Carta():
@@ -109,6 +59,22 @@ class Mazo():
     for i in range(6):
       cartas.append (self.cartas[i])
     return cartas
+  
+  def quien_es_mano (ronda, p1, puntos1, p2, puntos2):
+  
+    if ronda%2 == 0:
+      mano = p1
+      pie = p2
+      puntos_mano = puntos1
+      puntos_pie = puntos2
+
+    if ronda%2 != 0:
+      mano = p2
+      pie = p1
+      puntos_mano = puntos2
+      puntos_pie = puntos1
+
+    return mano, puntos_mano, pie, puntos_pie
 
   
 class Jugador():

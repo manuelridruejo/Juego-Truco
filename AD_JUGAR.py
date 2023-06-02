@@ -1,5 +1,5 @@
-from funciones import *
-from Clases_Juego import *
+from AC_funciones import *
+from AC_analisis_data import *
 
 def JugarPrimera (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_truco, quiero, mano):                 #JUGAR PRIMERA
   
@@ -503,7 +503,6 @@ def Jugar_Tercera (p1, puntos1, p2, puntos2, cartasj1, puntos_truco, quiero):   
   return puntos1, puntos2, puntos_truco, termino, carta1_p1, cartasj1, ganador, quiero 
 
 
-
 def Jugar(lista):    
 
   print('\nUsted ha elegido jugar una partida de TRUCO!')
@@ -557,7 +556,7 @@ def Jugar(lista):
 
     cartas_en_juego = mazo.repartir()      #Se reparte el mazo
     ronda = 1
-    mano, puntos_mano, pie, puntos_pie = quien_es_mano (ronda, p1, puntos1, p2, puntos2)        #Se determina que jugador es mano
+    mano, puntos_mano, pie, puntos_pie = mazo.quien_es_mano(ronda, p1, puntos1, p2, puntos2)        #Se determina que jugador es mano
 
     cartasmano = [cartas_en_juego[0], cartas_en_juego[2], cartas_en_juego[4]]         #Se dan las cartas al mano y al pie
     cartas_pie = [cartas_en_juego[1], cartas_en_juego[3], cartas_en_juego[5]]
@@ -833,7 +832,5 @@ def Jugar(lista):
     
 
   return ganador_final, perdedor_final, resultado, lista
-  
-  
   
   
