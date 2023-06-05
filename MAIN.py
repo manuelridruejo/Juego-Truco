@@ -1,5 +1,6 @@
 from AD_JUGAR import *
 from AA_validaciones import *
+from AB_Clases_Juego import *
 
 
 lista_jugadores = lectura_jugadores ('archivo_jugadores.csv')
@@ -24,7 +25,8 @@ while opcion != 4:
     print('2. Ver el registro de partidas')
     print('3. Buscar partida/s particular/es')
     print('4. Ranking mensual de jugadores')
-    opcion2 = ValidarRTA (4)
+    print('5. Salir')
+    opcion2 = ValidarRTA (5)
 
     if opcion2 == 1:
       BuscarJugador()
@@ -40,15 +42,73 @@ while opcion != 4:
 
   
   elif opcion == 2:
-    ganador= ''
-    perdedor= ''
-    resultado= ''
-    partida_jugada = Partida(ganador, perdedor, resultado, lista_partidas)
-    partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, lista_jugadores = partida_jugada.Jugar(lista_jugadores)
-    partida_a_agregar = [partida_jugada.codigo, partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, partida_jugada.fecha]
-    lista_partidas.append(partida_a_agregar)
-    escritura ('archivo_partidas.csv', lista_partidas)
-    escritura ('archivo_jugadores.csv', lista_jugadores)
+
+    print('\nUsted ha elegido jugar una partida de TRUCO!')
+    
+    print('\nJugador 1, desea ingresar como usuario o como invitado?') 
+    print('1. Usuario')
+    print('2. Invitado')
+    print('3. Salir')
+    opcion = ValidarRTA (3)
+
+    if opcion != 3:
+
+      p1_usuario = False
+      p2_usuario = False
+      
+      if opcion == 1:
+        nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1 = IniciarSesion(lista_jugadores)
+        p1 = usuario1
+        p1_usuario = True
+    
+      else:
+        nombre1 = input ('Ingrese su nombre por favor: ')
+        apellido1 = ''
+        dni1 = ''
+        mail1 = ''
+        clave1 = ''
+        partidas_jug1 = 0
+        partidas_gan1 = 0
+        usuario1 = ''
+        p1 = 'Invitado '+nombre1
+      
+
+      print('\nJugador 2, desea ingresar como usuario o como invitado?') 
+      print('1. Usuario')
+      print('2. Invitado')
+      print('3. Salir')
+      opcion = ValidarRTA (3)
+
+      if opcion != 3:
+        if opcion == 1:
+          nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2 = IniciarSesion (lista_jugadores)
+          p2 = usuario2
+          p2_usuario = True
+        
+        else:
+          nombre2 = input ('Ingrese su nombre por favor: ')
+          apellido2 = ''
+          dni2 = ''
+          mail2 = ''
+          clave2 = ''
+          partidas_jug2 = 0
+          partidas_gan2 = 0
+          usuario2 = ''
+          p2 = 'Invitado '+ nombre2
+        
+        if p1 == p2:
+          p1 += '1'
+          p2 += '2'
+
+        ganador= ''
+        perdedor= ''
+        resultado= ''
+        partida_jugada = Partida(ganador, perdedor, resultado, lista_partidas)
+        partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, lista_jugadores = partida_jugada.Jugar(p1,p2,p1_usuario,p2_usuario,lista_jugadores,nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1,nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2)
+        partida_a_agregar = [partida_jugada.codigo, partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, partida_jugada.fecha]
+        lista_partidas.append(partida_a_agregar)
+        escritura ('archivo_partidas.csv', lista_partidas)
+        escritura ('archivo_jugadores.csv', lista_jugadores)
     
 
   elif opcion == 3:

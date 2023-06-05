@@ -1,4 +1,5 @@
 from datetime import *
+import getpass
 
 
 def Validar (lista, atributo, parametro): 
@@ -155,8 +156,8 @@ def PedirMail ():
 def Pedirclave ():
   contra = False
   while contra == False:
-    clave = input('Elija su clave: ')
-    clave2 = input('Vuelva a escribir su clave para validarla: ')
+    clave = getpass.getpass('Elija su contraseña: ')
+    clave2 = getpass.getpass('Vuelva a escribir su contraseña para validarla: ')
     
     if clave == clave2:
       print('clave validada correctamente.')
