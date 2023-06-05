@@ -1,6 +1,6 @@
 import csv
 from AB_Clases_Juego import *
-
+from AA_validaciones import *
 
 
 def lectura_jugadores (file):
@@ -70,29 +70,7 @@ def CrearUsuario (lista):
   return nombre, apellido, dni, mail, clave, usuario
 
 
-def IniciarSesion (lista):
 
-  print('Usted ha decidido iniciar sesion. ')
-
-  inicio = False
-
-  while inicio == False:
-    usuario = input('Usuario: ')
-    clave = input('Contraseña: ')
-    for jugador in lista:
-      if jugador[7] == usuario and jugador[4] == clave:
-        inicio = True
-        nombre = jugador[0]
-        apellido = jugador[1]
-        dni = int(jugador[2])
-        mail = jugador[3]
-        partidas_jug = int(jugador[5])
-        partidas_gan = int(jugador[6])
-
-    if inicio == False:
-      print('El nombre de usuario o contraseña son incorrectos. Por favor, vuelva a intentarlo.')
-  
-  return nombre, apellido, dni, mail, clave, partidas_jug, partidas_gan, usuario
 
 
 def BuscarJugador (lista):

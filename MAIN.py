@@ -1,4 +1,5 @@
 from AD_JUGAR import *
+from AA_validaciones import *
 
 
 lista_jugadores = lectura_jugadores ('archivo_jugadores.csv')
@@ -39,8 +40,11 @@ while opcion != 4:
 
   
   elif opcion == 2:
-    ganador, perdedor, resultado, lista_jugadores = Jugar(lista_jugadores)
+    ganador= ''
+    perdedor= ''
+    resultado= ''
     partida_jugada = Partida(ganador, perdedor, resultado, lista_partidas)
+    partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, lista_jugadores = partida_jugada.Jugar(lista_jugadores)
     partida_a_agregar = [partida_jugada.codigo, partida_jugada.ganador, partida_jugada.perdedor, partida_jugada.resultado, partida_jugada.fecha]
     lista_partidas.append(partida_a_agregar)
     escritura ('archivo_partidas.csv', lista_partidas)
