@@ -99,7 +99,7 @@ def BuscarJugador (lista):
     us = input('\nIngrese el usuario que desea buscar: ')
     for jugador in lista:
       if jugador[7] == us:
-        p = Jugador(jugador[0],jugador[1],jugador[2],jugador[3],jugador[4],jugador[5],jugador[6],jugador[7])
+        p = Usuario(jugador[0],jugador[1],jugador[2],jugador[3],jugador[4],jugador[5],jugador[6],jugador[7])
         print(p)
         existe = True
     if existe == False:

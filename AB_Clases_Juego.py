@@ -75,13 +75,18 @@ class Mazo():
       puntos_pie = puntos1
 
     return mano, puntos_mano, pie, puntos_pie
- 
-class Jugador():
 
-  def __init__ (self, nombre : str, apellido : str, DNI: int, mail: str, clave: str, partidas_jugadas: int, partidas_ganadas: int, usuario: str):
+class Jugador():
+  
+  def __init__ (self, nombre : str, apellido : str, DNI: int):
     self.nombre = nombre
     self.apellido = apellido
     self.DNI = DNI
+
+class UsuarioRegistrado(Jugador):
+
+  def __init__ (self, nombre : str, apellido : str, DNI: int, mail: str, clave: str, partidas_jugadas: int, partidas_ganadas: int, usuario: str):
+    super().__init__(nombre, apellido, DNI)
     self.mail = mail
     self.clave = clave
     self.partidas_jugadas = partidas_jugadas
@@ -164,7 +169,11 @@ class Jugador():
       print('\nUsuario cambiado con exito.')
   
   def __str__ (self):
-    return "Usuario: {}\nNombre: {}\nApellido: {}\nMail: {}\nPartidas jugadas: {}\nPorcentaje de victoria: {}".format(self.usuario, self.nombre, self.apellido, self.mail, self.partidas_jugadas, float(round(self.partidas_ganadas/self.partidas_jugadas, 2)))
+    if self.partidas_jugadas==0:
+      porcentaje = 0
+    else:
+      porcentaje= float(round(self.partidas_ganadas/self.partidas_jugadas, 2))
+    return "Usuario: {}\nNombre: {}\nApellido: {}\nMail: {}\nPartidas jugadas: {}\nPorcentaje de victoria: {}".format(self.usuario, self.nombre, self.apellido, self.mail, self.partidas_jugadas, porcentaje)
 
 class Partida():
 
@@ -1348,8 +1357,8 @@ class Partida():
   def Jugar(self,p1,p2,p1_usuario,p2_usuario,lista,nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1,nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2):  
     ronda = 0
 
-    jugador1 = Jugador (nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1)
-    jugador2 = Jugador (nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2)
+    jugador1 = UsuarioRegistrado (nombre1, apellido1, dni1, mail1, clave1, partidas_jug1, partidas_gan1, usuario1)
+    jugador2 = UsuarioRegistrado (nombre2, apellido2, dni2, mail2, clave2, partidas_jug2, partidas_gan2, usuario2)
 
     puntos1 = 0
     puntos2 = 0

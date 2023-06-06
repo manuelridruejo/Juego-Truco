@@ -29,7 +29,7 @@ while opcion != 4:
     opcion2 = ValidarRTA (5)
 
     if opcion2 == 1:
-      BuscarJugador()
+      BuscarJugador(lista_jugadores)
     
     elif opcion2 == 2:
       print(RegistroPartidas(lista_partidas))
@@ -115,12 +115,13 @@ while opcion != 4:
     print('Bienvenido al menu de ajustes. ')
     print('1. Crear un usuario')
     print('2. Modificar la informacion de un usuario existente')
-    opcion = ValidarRTA (2)
+    print('3. Salir')
+    opcion = ValidarRTA (3)
 
     if opcion == 1:
       
       nombre, apellido, dni, mail, clave, usuario = CrearUsuario (lista_jugadores)
-      jugador = Jugador (nombre, apellido, dni, mail, clave, 0, 0, usuario)
+      jugador = UsuarioRegistrado (nombre, apellido, dni, mail, clave, 0, 0, usuario)
       lista_jugadores += [[jugador.nombre, jugador.apellido, jugador.DNI, jugador.mail, jugador.clave, jugador.partidas_jugadas, jugador.partidas_ganadas, jugador.usuario]]
       escritura ('archivo_jugadores.csv', lista_jugadores)
 
@@ -129,7 +130,7 @@ while opcion != 4:
     elif opcion == 2:
       print('Por favor, vamos a necesitar que ingrese con su usuario.')
       nombre_us, apellido_us, dni, mail, clave, partidas_jug, partidas_gan, usuario_sesion = IniciarSesion (lista_jugadores)
-      usuario_en_sesion = Jugador (nombre_us, apellido_us, dni, mail, clave, partidas_jug, partidas_gan, usuario_sesion)
+      usuario_en_sesion = UsuarioRegistrado (nombre_us, apellido_us, dni, mail, clave, partidas_jug, partidas_gan, usuario_sesion)
       
       usuario_a_modificar = 0
       for jugador in range(len(lista_jugadores)):
@@ -150,6 +151,7 @@ while opcion != 4:
 
       lista_jugadores.append([usuario_en_sesion.nombre, usuario_en_sesion.apellido, usuario_en_sesion.DNI, usuario_en_sesion.mail, usuario_en_sesion.clave, usuario_en_sesion.partidas_jugadas, usuario_en_sesion.partidas_ganadas, usuario_en_sesion.usuario])
       escritura ('archivo_jugadores.csv', lista_jugadores)
+
 
   elif opcion == 4:
     print('\nGracias por usar nuestro codigo!')
