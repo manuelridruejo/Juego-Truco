@@ -1,6 +1,5 @@
 import csv
 from AB_Clases_Juego import *
-from AA_validaciones import *
 
 
 def lectura_jugadores (file):
@@ -26,6 +25,7 @@ def lectura_partidas (file):
       lista += [jugador]
   return lista
 
+
 def IniciarSesion (lista):
 
   print('Usted ha decidido iniciar sesion. ')
@@ -34,7 +34,7 @@ def IniciarSesion (lista):
 
   while inicio == False:
     usuario = input('Usuario: ')
-    clave = getpass.getpass("Contraseña: ")
+    clave = PedirClave()
     for jugador in lista:
       if jugador[7] == usuario and jugador[4] == clave:
         inicio = True
@@ -49,6 +49,7 @@ def IniciarSesion (lista):
       print('El nombre de usuario o contraseña son incorrectos. Por favor, vuelva a intentarlo.')
   
   return nombre, apellido, dni, mail, clave, partidas_jug, partidas_gan, usuario
+
 
 def escritura(archivo:str, matriz):
     
@@ -88,25 +89,36 @@ def CrearUsuario (lista):
       existe = Validar (lista, usuario, 7)
 
     usuario_nuevo = True
-    clave = Pedirclave ()
+    clave = Validarclave ()
 
   return nombre, apellido, dni, mail, clave, usuario
 
 
-def BuscarJugador (lista):
+def PerfilJugador (lista):
   existe = False
   while existe == False:
-    us = input('\nIngrese el usuario que desea buscar: ')
+    usuario = input('Ingrese el usuario que desea buscar: ')
+    print('\n')
     for jugador in lista:
-      if jugador[7] == us:
-        p = Usuario(jugador[0],jugador[1],jugador[2],jugador[3],jugador[4],jugador[5],jugador[6],jugador[7])
+      if jugador[7] == usuario:
+        p = UsuarioRegistrado(jugador[0],jugador[1],jugador[2],jugador[3],jugador[4],jugador[5],jugador[6],jugador[7])
         print(p)
         existe = True
     if existe == False:
       print('Jugador no encontrado. Vuelva a intentarlo por favor.')
 
 
-def BuscarPartidaParticular (lista):
+def BuscarJugador(lista, usuario):
+  existe = False
+  for jugador in lista:
+    if jugador[7] == usuario:
+      existe = True
+  return existe
+
+
+def BuscarPartidaParticular (lista_partidas, lista_jugadores):
+
+  clear_terminal()
   print('Bienvenido al buscador de partidas, como desea filtrar su busqueda?')
   print('1. Por codigo de partida')
   print('2. Por usuario')
@@ -115,24 +127,29 @@ def BuscarPartidaParticular (lista):
   opcion = ValidarRTA (4)
 
   if opcion == 1:
+    clear_terminal()
     print('Usted ha elegido filtrar por codigo de partida.')
     codigo = PedirCodigo ()
-    historial = PartidaParticular (lista, codigo, 0)
+    historial = PartidaParticular (lista_partidas, codigo, 0)
 
   elif opcion == 2:
+    clear_terminal()
     print('Usted ha elegido filtrar por usuario. Recuerde que apareceran todas las partidas de dicho usuario. Tambien puede buscar las de invitados anteponiendo el prefijo *Invitado *.')
     usuario = input('Ingrese el nombre de usuario: ')
-    historial = PartidaxJugador (lista, usuario)
+    historial = PartidaxJugador (lista_partidas, lista_jugadores, usuario)
     if historial == '':
       historial = '\nNo se han encontrado partidas para dicho usuario.'
   
   elif opcion == 3:
+    clear_terminal()
     fecha = ValidarFecha()
-    historial = PartidaParticular (lista, fecha, 4)
+    clear_terminal()
+    historial = PartidaParticular (lista_partidas, fecha, 4)
 
   elif opcion == 4:
+    clear_terminal()
     fecha = date.today()
-    historial = PartidaParticular (lista, fecha, 4)
+    historial = PartidaParticular (lista_partidas, fecha, 4)
     if historial == '':
       historial = '\nNo se encontraron partidas el dia de hoy'
   
@@ -143,22 +160,30 @@ def BuscarPartidaParticular (lista):
 
 
 def RegistroPartidas (lista):
-  print('\nBienvenido al registro de partidas, que desea buscar?')
+
+  clear_terminal()
+  print('Bienvenido al registro de partidas, que desea buscar?')
   print('1. Ultimas N partidas')
   print('2. Partidas a partir de DD/MM/YY')
   print('3. Ver todo el registro de partidas')
   opcion = ValidarRTA (3)
 
   if opcion == 1:
+    clear_terminal()
     print('Cuantas partidas desea ver?')
     n = ValidarEntero ()
+    while n <=0 :
+      print('Elija un numero mayor a cero por favor.')
+      n = ValidarEntero ()
     historial = UltimasNPartidas (lista, n)
 
   elif opcion == 2:
+    clear_terminal()
     fecha = ValidarFecha()
     historial = PartidaxFecha (lista, fecha)
 
   elif opcion == 3:
+    clear_terminal()
     historial = TodasLasPartidas (lista)
   
   if historial == '':
@@ -168,6 +193,7 @@ def RegistroPartidas (lista):
 
 
 def Ranking (lista_partidas, lista_jugadores):      #Ranking de usuarios. Opcion determina si es de todo el tiempo, mensual o semanal
+  clear_terminal()
   print('Bienvenido al buscador de ranking de usuarios. Como desea filtrar su busqueda?')
   print('1. Ver el ranking de todo el tiempo')
   print('2. Ver el ranking mensual')
@@ -177,12 +203,15 @@ def Ranking (lista_partidas, lista_jugadores):      #Ranking de usuarios. Opcion
   ranking = ''
 
   if opcion == 1:
+    clear_terminal()
     ranking = RankingAllTime (lista_partidas, lista_jugadores)
   
   elif opcion == 2:
+    clear_terminal()
     ranking = RankingAcotado (lista_partidas, lista_jugadores, 30)
 
   elif opcion == 3:
+    clear_terminal()
     ranking = RankingAcotado (lista_partidas, lista_jugadores, 7)
   
   return ranking
@@ -231,17 +260,20 @@ def RankingAllTime (lista_partidas, lista_jugadores):
 def MostrarRanking (lista):
   ranking = ''
   for jugador in lista:
-    ranking += '\n{}: {} victorias'.format(jugador[0], jugador[1])
+    ranking += '{}: {} victorias\n'.format(jugador[0], jugador[1])
   
   return ranking
 
 
-def PartidaxJugador (lista, usuario):
-  historial = ''       #Busca las partidas que haya jugado un jugador X, haya ganado o perdido
-  for i in range(len(lista)):
-    if lista[i][1] == usuario or lista[i][2] == usuario:
-      historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4])
-
+def PartidaxJugador (lista_partidas, lista_jugadores, usuario):
+  historial = ''
+  existe = BuscarJugador (lista_jugadores, usuario)       #Busca las partidas que haya jugado un jugador X, haya ganado o perdido
+  if existe == True:
+    for i in range(len(lista_partidas)):
+      if lista_partidas[i][1] == usuario or lista_partidas[i][2] == usuario:
+        historial += 'Codigo: {}, ganador: {}, vencedor: {}, resultado: {}, fecha: {}\n'.format(lista_partidas[i][0], lista_partidas[i][1], lista_partidas[i][2], lista_partidas[i][3], lista_partidas[i][4])
+  else:
+    historial = 'Dicho usuario no se encuentra registrado en la base de datos'
   return historial
 
 

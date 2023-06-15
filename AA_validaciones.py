@@ -1,5 +1,16 @@
 from datetime import *
-import getpass
+import msvcrt
+import os
+import time
+
+
+def clear_terminal():
+    # Comando para borrar la terminal en sistemas UNIX/Linux
+    if os.name == 'posix':
+        os.system('clear')
+    # Comando para borrar la terminal en sistemas Windows
+    elif os.name == 'nt':
+        os.system('cls')
 
 
 def Validar (lista, atributo, parametro): 
@@ -153,11 +164,11 @@ def PedirMail ():
   return mail
 
 
-def Pedirclave ():
+def Validarclave ():
   contra = False
   while contra == False:
-    clave = getpass.getpass('Elija su contraseña: ')
-    clave2 = getpass.getpass('Vuelva a escribir su contraseña para validarla: ')
+    clave = PedirClave ("Ingresa tu clave: ")
+    clave2 = PedirClave ('Vuelva a escribir su contraseña para validarla: ')
     
     if clave == clave2:
       print('clave validada correctamente.')
@@ -168,6 +179,24 @@ def Pedirclave ():
       contra = False
   
   return clave
+
+
+def PedirClave (prompt='Ingresa tu clave: '):
+  print(prompt, end='', flush=True)
+  chars = []
+  while True:
+    char = msvcrt.getch().decode('utf-8')
+    if char in ('\r', '\n'):
+      print('')
+      break
+    elif char == '\b':
+      if chars:
+        chars.pop()
+        print('\b \b', end='', flush=True)
+    else:
+      chars.append(char)
+      print('*', end='', flush=True)
+  return ''.join(chars)
 
 
 def PedirUsuario ():
@@ -191,5 +220,5 @@ def PedirCodigo ():
     aux += '0'
   codigo = aux + cod
 
-  return 
+  return codigo
 

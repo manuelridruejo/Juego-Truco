@@ -1,6 +1,4 @@
-from AD_JUGAR import *
-from AA_validaciones import *
-from AB_Clases_Juego import *
+from AC_analisis_data import *
 
 
 lista_jugadores = lectura_jugadores ('archivo_jugadores.csv')
@@ -8,48 +6,62 @@ lista_partidas = lectura_partidas ('archivo_partidas.csv')
 
 
 opcion = 1
+clear_terminal()
 
 while opcion != 4:
 
-  print("\n\n\nBienvenido! Que desea hacer?")
-  print("\n1. Buscar en la base de datos")
+  print("Bienvenido! Que desea hacer?")
+  print("1. Buscar en la base de datos")
   print("2. Jugar un partido de Truco")
   print('3. Ajustes de usuario')
   print("4. Salir")
-
   opcion = ValidarRTA(4)
-  
-  if opcion == 1: 
-    print('\nBienvenido al sector de analisis de datos. Que desea buscar?')
-    print('1. Perfil de un usuario')
-    print('2. Ver el registro de partidas')
-    print('3. Buscar partida/s particular/es')
-    print('4. Ranking mensual de jugadores')
-    print('5. Salir')
-    opcion2 = ValidarRTA (5)
+  clear_terminal()
 
-    if opcion2 == 1:
-      BuscarJugador(lista_jugadores)
-    
-    elif opcion2 == 2:
-      print(RegistroPartidas(lista_partidas))
-        
-    elif opcion2 == 3:
-      print(BuscarPartidaParticular(lista_partidas))
-    
-    elif opcion2 == 4:
-      print(Ranking(lista_partidas, lista_jugadores))
+
+  if opcion == 1: 
+    while opcion != 5:
+      print('Bienvenido al sector de analisis de datos. Que desea buscar?')
+      print('1. Perfil de un usuario')
+      print('2. Ver el registro de partidas')
+      print('3. Buscar partida/s particular/es')
+      print('4. Ranking de jugadores')
+      print('5. Salir')
+      opcion = ValidarRTA (5)
+      clear_terminal()
+
+      if opcion == 1:
+        PerfilJugador(lista_jugadores)
+        print('\n')
+      
+      elif opcion == 2:
+        registro = RegistroPartidas(lista_partidas)
+        clear_terminal()
+        print(registro)
+        print('\n')
+          
+      elif opcion == 3:
+        registro = BuscarPartidaParticular(lista_partidas, lista_jugadores)
+        clear_terminal()
+        print(registro)
+        print('\n')
+      
+      elif opcion == 4:
+        registro = Ranking(lista_partidas, lista_jugadores)
+        clear_terminal()
+        print(registro)
 
   
   elif opcion == 2:
 
-    print('\nUsted ha elegido jugar una partida de TRUCO!')
+    print('Usted ha elegido jugar una partida de TRUCO!')
     
-    print('\nJugador 1, desea ingresar como usuario o como invitado?') 
+    print('Jugador 1, desea ingresar como usuario o como invitado?') 
     print('1. Usuario')
     print('2. Invitado')
     print('3. Salir')
     opcion = ValidarRTA (3)
+    clear_terminal()
 
     if opcion != 3:
 
@@ -73,11 +85,12 @@ while opcion != 4:
         p1 = 'Invitado '+nombre1
       
 
-      print('\nJugador 2, desea ingresar como usuario o como invitado?') 
+      print('Jugador 2, desea ingresar como usuario o como invitado?') 
       print('1. Usuario')
       print('2. Invitado')
       print('3. Salir')
       opcion = ValidarRTA (3)
+      clear_terminal()
 
       if opcion != 3:
         if opcion == 1:
@@ -117,6 +130,7 @@ while opcion != 4:
     print('2. Modificar la informacion de un usuario existente')
     print('3. Salir')
     opcion = ValidarRTA (3)
+    clear_terminal()
 
     if opcion == 1:
       
@@ -124,10 +138,13 @@ while opcion != 4:
       jugador = UsuarioRegistrado (nombre, apellido, dni, mail, clave, 0, 0, usuario)
       lista_jugadores += [[jugador.nombre, jugador.apellido, jugador.DNI, jugador.mail, jugador.clave, jugador.partidas_jugadas, jugador.partidas_ganadas, jugador.usuario]]
       escritura ('archivo_jugadores.csv', lista_jugadores)
+      clear_terminal()
 
-      print('\nEl jugador ha sido ingresado con exito!')
+      print('El jugador ha sido ingresado con exito!')
+      time.sleep(2)
 
     elif opcion == 2:
+
       print('Por favor, vamos a necesitar que ingrese con su usuario.')
       nombre_us, apellido_us, dni, mail, clave, partidas_jug, partidas_gan, usuario_sesion = IniciarSesion (lista_jugadores)
       usuario_en_sesion = UsuarioRegistrado (nombre_us, apellido_us, dni, mail, clave, partidas_jug, partidas_gan, usuario_sesion)
@@ -141,18 +158,24 @@ while opcion != 4:
       
       seguir = 1
       while seguir != 2:
+        clear_terminal()
         usuario_en_sesion.modificar(lista_jugadores)
+        clear_terminal()
         print('Quiere seguir modificando su usuario?')
         print('1. Si')
         print('2. No')
         seguir = ValidarRTA(2)
 
-      print('\nDatos cambiados con exito!')
+      clear_terminal()  
+      print('Datos cambiados con exito!')
+      time.sleep(2)
+      clear_terminal()
+      time.sleep(1)
 
       lista_jugadores.append([usuario_en_sesion.nombre, usuario_en_sesion.apellido, usuario_en_sesion.DNI, usuario_en_sesion.mail, usuario_en_sesion.clave, usuario_en_sesion.partidas_jugadas, usuario_en_sesion.partidas_ganadas, usuario_en_sesion.usuario])
       escritura ('archivo_jugadores.csv', lista_jugadores)
 
 
   elif opcion == 4:
-    print('\nGracias por usar nuestro codigo!')
-    print('Saludos.')
+    print('Gracias por usar nuestro codigo!')
+    print('Saludos.\n')
