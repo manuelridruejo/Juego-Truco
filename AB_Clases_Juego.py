@@ -241,6 +241,7 @@ class Partida():
               print('4. Rendirse')
               opcion = ValidarRTA(4)
               clear_terminal()
+
             else:
               opcion = 3
             
@@ -251,7 +252,7 @@ class Partida():
               if termino != True:
                 clear_terminal()
                 carta1_p1, cartasj1 = self.tirar_3(jug1, cartasj1)
-                print("\n{} ha tirado el {}".format(jug1, str(carta1_p1)))
+                print("{} ha tirado el {}".format(jug1, str(carta1_p1)))
                 print('\n')
               elif fin_partida == True:
                 if ganador == jug1:
@@ -263,7 +264,7 @@ class Partida():
             
             elif opcion == 2:
               carta1_p1, cartasj1 = self.tirar_3(jug1, cartasj1)
-              print("\n{} ha tirado el {}".format(jug1, str(carta1_p1)))
+              print("{} ha tirado el {}".format(jug1, str(carta1_p1)))
               print('\n')
           
             elif opcion == 3:
@@ -288,7 +289,7 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-            print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+            print("{} ha tirado el {}".format (jug1, carta1_p1))
             print('\n')
 
           elif fin_partida == True:
@@ -301,7 +302,7 @@ class Partida():
 
         elif opcion == 3:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
 
         elif opcion == 4:
           termino = True
@@ -332,7 +333,7 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-            print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+            print("{} ha tirado el {}".format (jug1, carta1_p1))
           elif fin_partida == True:
               if ganador == jug1:
                 puntos1 = 30
@@ -343,7 +344,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -374,11 +376,14 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_3(jug1, cartasj1)
-            print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+            print("{} ha tirado el {}".format (jug1, carta1_p1))
+            print('\n')
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_3(jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          clear_terminal()
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -404,7 +409,8 @@ class Partida():
 
         if opcion == 1:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 2:
           termino = True
@@ -446,7 +452,8 @@ class Partida():
             if opcion == 1:
               clear_terminal()
               carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-              print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+              print("{} ha tirado el {}".format (jug1, carta1_p1))
+              print('\n')
 
             elif opcion == 2:
               termino = True
@@ -457,7 +464,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -483,7 +491,8 @@ class Partida():
 
         if opcion == 1:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 2:
           termino = True
@@ -501,7 +510,7 @@ class Partida():
     return puntos1, puntos2, puntos_truco, termino, hubo_envido, carta1_p1, cartasj1, ganador, quiero, fin_partida
 
 
-  def JugarPrimeraSinTanto (self,jug1, cartasj1, jug2, puntos_truco, quiero):                            #JUGAR PRIMERA SIN TANTO
+  def JugarPrimeraSinTanto (self, jug1, cartasj1, jug2, puntos_truco, quiero, puntos1, puntos2):                            #JUGAR PRIMERA SIN TANTO
     
     carta1_p1 = ''
     ganador = ''
@@ -526,7 +535,9 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-            print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+            print("{} ha tirado el {}".format (jug1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
               if ganador == jug1:
                 puntos1 = 30
@@ -537,7 +548,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -568,7 +580,9 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-            print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+            print("{} ha tirado el {}".format (jug1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
             if ganador == jug1:
               puntos1 = 30
@@ -579,7 +593,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -610,7 +625,9 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-            print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+            print("{} ha tirado el {}".format (jug1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
             if ganador == jug1:
               puntos1 = 30
@@ -621,7 +638,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -647,7 +665,8 @@ class Partida():
 
         if opcion == 1:
           carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-          print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+          print("{} ha tirado el {}".format (jug1, carta1_p1))
+          print('\n')
 
         elif opcion == 2:
           termino = True
@@ -673,7 +692,8 @@ class Partida():
 
       if opcion == 1:
         carta1_p1, cartasj1 = self.tirar_3 (jug1, cartasj1)
-        print("\n{} ha tirado el {}".format (jug1, carta1_p1))
+        print("{} ha tirado el {}".format (jug1, carta1_p1))
+        print('\n')
 
       elif opcion == 2:
         termino = True
@@ -714,7 +734,9 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-            print("\n{} ha tirado el {}".format (p1, carta1_p1))
+            print("{} ha tirado el {}".format (p1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
               if ganador == p1:
                 puntos1 = 30
@@ -725,7 +747,8 @@ class Partida():
   
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-          print("\n{} ha tirado el {}".format (p1, carta1_p1))
+          print("{} ha tirado el {}".format (p1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -755,7 +778,9 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-            print("\n{} ha tirado el {}".format(p1,carta1_p1))
+            print("{} ha tirado el {}".format(p1,carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
               if ganador == p1:
                 puntos1 = 30
@@ -766,7 +791,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-          print("\n{} ha tirado el {}".format(p1, carta1_p1))
+          print("{} ha tirado el {}".format(p1, carta1_p1))
+          print('\n')
   
         elif opcion == 3:
           termino = True
@@ -797,7 +823,9 @@ class Partida():
           if termino != True:
             clear_terminal()
             carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-            print("\n{} ha tirado el {}".format (p1, carta1_p1))
+            print("{} ha tirado el {}".format (p1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
             if ganador == p1:
               puntos1 = 30
@@ -808,7 +836,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-          print("\n{} ha tirado el {}".format (p1, carta1_p1))
+          print("{} ha tirado el {}".format (p1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -825,7 +854,8 @@ class Partida():
 
       elif puntos_truco == 4:
         carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-        print("\n{} ha tirado el {}".format (p1, carta1_p1))
+        print("{} ha tirado el {}".format (p1, carta1_p1))
+        print('\n')
     
     elif quiero == p2:
       print(p1 + ', que desea hacer?')
@@ -838,7 +868,8 @@ class Partida():
 
       if opcion == 1:
         carta1_p1, cartasj1 = self.tirar_2 (p1, cartasj1)
-        print("\n{} ha tirado el {}".format (p1, carta1_p1))
+        print("{} ha tirado el {}".format (p1, carta1_p1))
+        print('\n')
 
       elif opcion == 2:
         termino = True
@@ -877,8 +908,11 @@ class Partida():
           puntos_truco, termino, ganador, quiero, fin_partida = self.CantarTruco (p1, p2)
         
           if termino != True:
+            clear_terminal()
             carta1_p1, cartasj1 = self.tirar_1 (p1, cartasj1)
-            print("\n{} ha tirado el {}".format (p1, carta1_p1))
+            print("{} ha tirado el {}".format (p1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
               if ganador == p1:
                 puntos1 = 30
@@ -889,8 +923,9 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_1 (p1, cartasj1)
-          print("\n{} ha tirado el {}".format (p1, carta1_p1))
-
+          print("{} ha tirado el {}".format (p1, carta1_p1))
+          print('\n')
+          
         elif opcion == 3:
           termino = True
           ganador = p2
@@ -918,8 +953,11 @@ class Partida():
           puntos_truco, termino, ganador, quiero, fin_partida = self.CantarReTruco (p1, p2)
         
           if termino != True:
+            clear_terminal()
             carta1_p1, cartasj1 = self.tirar_1 (p1, cartasj1)
-            print("\n{} ha tirado el {}".format (p1, carta1_p1))
+            print("{} ha tirado el {}".format (p1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
               if ganador == p1:
                 puntos1 = 30
@@ -930,7 +968,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_1 (p1, cartasj1)
-          print("\n{} ha tirado el {}".format (p1, carta1_p1))
+          print("{} ha tirado el {}".format (p1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -959,8 +998,11 @@ class Partida():
           puntos_truco, termino, ganador, quiero, fin_partida = self.CantarValeCuatro (p1, p2)
         
           if termino != True:
+            clear_terminal()
             carta1_p1, cartasj1 = self.tirar_1 (p1, cartasj1)
-            print("\n{} ha tirado el {}".format (p1, carta1_p1))
+            print("{} ha tirado el {}".format (p1, carta1_p1))
+            print('\n')
+
           elif fin_partida == True:
             if ganador == p1:
               puntos1 = 30
@@ -971,7 +1013,8 @@ class Partida():
 
         elif opcion == 2:
           carta1_p1, cartasj1 = self.tirar_1 (p1, cartasj1)
-          print("\n{} ha tirado el {}".format (p1, carta1_p1))
+          print("{} ha tirado el {}".format (p1, carta1_p1))
+          print('\n')
 
         elif opcion == 3:
           termino = True
@@ -989,7 +1032,8 @@ class Partida():
       elif puntos_truco == 4:
         clear_terminal()
         carta1_p1, cartasj1 = self.tirar_1 (p1, cartasj1)
-        print("\n{} ha tirado el {}".format (p1, carta1_p1))
+        print("{} ha tirado el {}".format (p1, carta1_p1))
+        print('\n')
     
     elif quiero == p2:
       print(p1 + ', que desea hacer?')
@@ -1002,7 +1046,8 @@ class Partida():
 
       if opcion == 1:
         carta1_p1, cartasj1 = self.tirar_1(p1, cartasj1)
-        print("\n{} ha tirado el {}".format(p1, carta1_p1))
+        print("{} ha tirado el {}".format(p1, carta1_p1))
+        print('\n')
 
       elif opcion == 2:
         termino = True
@@ -1146,7 +1191,7 @@ class Partida():
 
   def envido (self,jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, mano):
     clear_terminal()
-    print('\nQue desea cantar?')
+    print('Que desea cantar?')
     print('1. Envido')
     print('2. Real envido')
     print('3. Falta envido')
@@ -1228,11 +1273,11 @@ class Partida():
       
     elif opcion == 2:                    
       puntos_al_no = 1
-      puntos_tanto = 32
+      puntos_tanto = 3
       puntos1, puntos2 = self.real_envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_tanto, puntos_al_no, mano)
     
     elif opcion == 3:
-      puntos_al_no=1
+      puntos_al_no = 1
       puntos1, puntos2 = self.falta_envido (jug1, puntos1, cartasj1, jug2, puntos2, cartasj2, puntos_al_no, mano)
     
     fin_partida = self.chequearganador(puntos1, puntos2)
@@ -1390,11 +1435,12 @@ class Partida():
 
   def tirar_3 (self,jugador, cartas):
     lista = []
-    print("\n" + jugador + ", que carta desea tirar: ")
+    print("" + jugador + ", que carta desea tirar: ")
     print("1. " + str(cartas[0]))
     print("2. " + str(cartas[1]))
     print("3. " + str(cartas[2]))
     op = ValidarRTA (3)
+    clear_terminal()
 
     for j in cartas:
       if j != cartas[op-1]:
@@ -1406,10 +1452,11 @@ class Partida():
     
     lista = []
     
-    print("\n" + jugador + ", que carta desea tirar: ")
+    print("" + jugador + ", que carta desea tirar: ")
     print("1. " + str(cartas[0]))
     print("2. " + str(cartas[1]))
     op = ValidarRTA (2)
+    clear_terminal()
     
     for j in cartas:
       if j != cartas [op-1]:
@@ -1422,6 +1469,7 @@ class Partida():
     print(jugador + ", le queda una sola carta, presione 1 para tirarla: ")
     print("1." + str(cartas[0]))
     opcion = ValidarRTA (1)
+    clear_terminal()
 
     return cartas[0], []
  
@@ -1434,7 +1482,9 @@ class Partida():
     puntos1 = 0
     puntos2 = 0
 
-    print("\nSe ha iniciado una nueva partida entre: " + p1 + " y " + p2)
+    clear_terminal()
+    print("Se ha iniciado una nueva partida entre: " + p1 + " y " + p2)
+    time.sleep(2)
 
     while puntos1 < 30 and puntos2 < 30:
       
@@ -1461,6 +1511,7 @@ class Partida():
       print(pie, 'es PIE.')
       self.mostrar_cartas(cartas_pie)
       time.sleep(5)
+      clear_terminal()
       puntos_truco = 1
       que_mano_es = 1
       hubo_envido = False
@@ -1489,7 +1540,7 @@ class Partida():
           break
         
         if hubo_envido == True:
-          puntos_mano, puntos_pie, puntos_truco, termino, carta1_pie, cartas_pie, ganador, quiero  = self.JugarPrimeraSinTanto (pie, cartas_pie, mano, puntos_truco, quiero)
+          puntos_mano, puntos_pie, puntos_truco, termino, carta1_pie, cartas_pie, ganador, quiero  = self.JugarPrimeraSinTanto (pie, cartas_pie, mano, puntos_truco, quiero, puntos_mano, puntos_pie)
       
           if termino == True: 
             break
@@ -1517,7 +1568,7 @@ class Partida():
 
         elif carta1_mano == carta1_pie:
           parda1=True
-          print('\nSe ha pardado')
+          print('Se ha pardado')
         
         time.sleep(3)
 
@@ -1563,7 +1614,7 @@ class Partida():
           clear_terminal()
           if carta2_mano == carta2_pie: #Se pardo segunda
             parda2 = True
-            print("\nSe ha pardado")
+            print("Se ha pardado")
 
           elif carta2_mano > carta2_pie: #gano la mano
             ganador = mano
@@ -1663,11 +1714,11 @@ class Partida():
       if fin_partida == False:
         if ganador == mano:
           puntos_mano += puntos_truco
-          print("\nHa ganado: ", mano, " se le suman ", puntos_truco, " puntos")
+          print("Ha ganado: ", mano, " se le suman ", puntos_truco, " puntos")
           
         elif ganador == pie:
           puntos_pie += puntos_truco
-          print("\nHa ganado: ", pie, " se le suman ", puntos_truco, " puntos")
+          print("Ha ganado: ", pie, " se le suman ", puntos_truco, " puntos")
       time.sleep(3)
 
       if p1 == mano:
@@ -1678,10 +1729,9 @@ class Partida():
         puntos1 = puntos_pie
 
       clear_terminal()
-      print('\nPuntos de '+ p1 + ": " + str(puntos1))
-      print('\nPuntos de ' + p2 + ": " + str(puntos2))
-      print('\n------------------------------------------------------------------------------\n\n')
-      ronda +=1
+      print('Puntos de '+ p1 + ": " + str(puntos1))
+      print('Puntos de ' + p2 + ": " + str(puntos2))
+      print('------------------------------------------------------------------------------\n\n')
 
       time.sleep(5)
 
@@ -1695,7 +1745,8 @@ class Partida():
       ganador_final = p2
       perdedor_final = p1
       resultado = str(puntos2) + "-" + str(puntos1)
-      print('\nFELICITACIONES ' + p2 + ', USTED HA GANAD0!')
+      clear_terminal()
+      print('FELICITACIONES ' + p2 + ', USTED HA GANAD0!')
       print('\nSe ha guardado el registro de la partida completo, el jugador '+p2+' ha derrotado a '+p1+' con un resultado de '+resultado+'.')
       if p1_usuario == True:
         jugador1.jugo_partida()
@@ -1715,7 +1766,8 @@ class Partida():
       ganador_final = p1
       perdedor_final = p2
       resultado = str(puntos1) + "-"+str(puntos2)
-      print('\nFELICITACIONES ' + p1 + ', USTED HA GANAD0!')
+      clear_terminal()
+      print('FELICITACIONES ' + p1 + ', USTED HA GANAD0!')
       print('\nSe ha guardado el registro de la partida completo, el jugador '+p1+' ha derrotado a '+p2+' con un resultado de '+resultado+'.')
       if p1_usuario == True:
         jugador1.gano_partida()
@@ -1723,7 +1775,7 @@ class Partida():
           if jugador1.usuario == lista[jugador][7]:
             lista.pop(jugador)
             lista.append([jugador1.nombre,jugador1.apellido,jugador1.DNI,jugador1.mail,jugador1.clave,jugador1.partidas_jugadas,jugador1.partidas_ganadas,jugador1.usuario])
-
+    
       if p2_usuario == True:
 
         jugador2.jugo_partida()
@@ -1732,7 +1784,8 @@ class Partida():
             lista.pop(jugador)
             lista.append([jugador2.nombre,jugador2.apellido,jugador2.DNI,jugador2.mail,jugador2.clave,jugador2.partidas_jugadas,jugador2.partidas_ganadas,jugador2.usuario])
     
-      
+    time.sleep(4)
+    clear_terminal()
 
     return ganador_final, perdedor_final, resultado, lista
     
